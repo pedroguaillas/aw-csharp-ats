@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Globalization;
 using System.IO;
 using WinAppATS.Class;
+using System.Linq;
 
 namespace WinAppATS
 {
@@ -491,18 +492,25 @@ namespace WinAppATS
         {
             if (cbCalculable.Checked)
             {
-                int lentId = dgvVentas.Rows[row].Cells[0].Value.ToString().Length;
-                switch (lentId)
+                if (dgvVentas.Rows[row].Cells[0].Value.ToString().All(char.IsDigit))
                 {
-                    case 10:
-                        dgvVentas.Rows[row].Cells[2].Value = "05";
-                        break;
-                    case 13:
-                        dgvVentas.Rows[row].Cells[2].Value = dgvVentas.Rows[row].Cells[0].Value.ToString().Equals("9999999999999") ? "07" : "04";
-                        break;
-                    default:
-                        dgvVentas.Rows[row].Cells[2].Value = "06";
-                        break;
+                    int lentId = dgvVentas.Rows[row].Cells[0].Value.ToString().Length;
+                    switch (lentId)
+                    {
+                        case 10:
+                            dgvVentas.Rows[row].Cells[2].Value = "05";
+                            break;
+                        case 13:
+                            dgvVentas.Rows[row].Cells[2].Value = dgvVentas.Rows[row].Cells[0].Value.ToString().Equals("9999999999999") ? "07" : "04";
+                            break;
+                        default:
+                            dgvVentas.Rows[row].Cells[2].Value = "06";
+                            break;
+                    }
+                }
+                else
+                {
+                    dgvVentas.Rows[row].Cells[2].Value = "06";
                 }
             }
         }
@@ -567,8 +575,8 @@ namespace WinAppATS
 
         private void btnIRecuperado_Click(object sender, EventArgs e)
         {
-            //dgv.importRecuperado();
-            dgv.importRecuperadoMasivo();
+            dgv.importRecuperado();
+            //dgv.importRecuperadoMasivo();
             sumcolumns();
         }
 

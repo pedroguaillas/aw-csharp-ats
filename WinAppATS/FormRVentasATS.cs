@@ -68,6 +68,7 @@ namespace WinAppATS
                     ReportDataSource report = new ReportDataSource("dsVentas", newTable);
                     this.reportViewer1.ServerReport.BearerToken = null;
                     this.reportViewer1.TabIndex = 0;
+                    this.reportViewer1.LocalReport.DisplayName = "LISTA DE VENTAS ATS";
                     this.reportViewer1.LocalReport.ReportPath = Const.filereport("RVentasATS");
                     this.reportViewer1.LocalReport.DataSources.Clear();
                     this.reportViewer1.LocalReport.DataSources.Add(report);

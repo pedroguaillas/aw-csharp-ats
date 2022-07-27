@@ -63,6 +63,7 @@ namespace WinAppATS
                 ReportDataSource report = new ReportDataSource("dsCompras", dataTable);
                 this.reportViewer1.ServerReport.BearerToken = null;
                 this.reportViewer1.TabIndex = 0;
+                this.reportViewer1.LocalReport.DisplayName = "DETALLE RETENCIONES EN LA FUENTE DEL IVA POR COMPRAS";
                 this.reportViewer1.LocalReport.ReportPath = Const.filereport("RComprasRFIVADetall");
                 this.reportViewer1.LocalReport.DataSources.Clear();
                 this.reportViewer1.LocalReport.DataSources.Add(report);

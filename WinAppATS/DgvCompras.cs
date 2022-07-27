@@ -136,74 +136,7 @@ namespace WinAppATS
 
                             if (codDoc == "01" || codDoc == "04" || codDoc == "05")
                             {
-                                double imponible = 0;
-                                double base0 = 0;
-                                double base12 = 0;
-                                double ice = 0;
-                                foreach (var totalImpuesto in xmlDoc.Descendants("totalImpuesto"))
-                                {
-                                    switch (Int32.Parse(totalImpuesto.Descendants("codigoPorcentaje").FirstOrDefault().Value))
-                                    {
-                                        case 0: base0 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                                        case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                                        case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                                        case 6: imponible += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                                        default:
-                                            if (Int32.Parse(totalImpuesto.Descendants("codigo").FirstOrDefault().Value) == 3)
-                                            {
-                                                ice += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
-                                            }
-                                            break;
-                                    }
-                                }
-                                double iva = Math.Round(base12 * .12, 2);
-
-                                string codCombustible = "";
-
-                                if (checkBox.Checked)
-                                {
-                                    switch (xmlDoc.Descendants("codigoPrincipal").FirstOrDefault().Value)
-                                    {
-                                        case "0103": codCombustible = "SÚPER"; break;
-                                        case "0101": codCombustible = "EXTRA"; break;
-                                        case "0174": codCombustible = "EXTRAE"; break;
-                                        case "0121": codCombustible = "DIESELP"; break;
-                                        case "0104": codCombustible = "DIESEL2"; break;
-                                    }
-                                }
-                                //MessageBox.Show(codCombustible);
-
-                                dgvCompras.Rows.Add(
-                                (!codCombustible.Equals("") ? codCombustible : xmlDoc.Descendants("tipoIdentificacionComprador").FirstOrDefault().Value == "05" ? "xxx" : ""),  //Codigo de compra debe ser nulo al final generar el codigo
-                                xmlDoc.Descendants("ruc").FirstOrDefault().Value,
-                                removeOtherCharacter(xmlDoc.Descendants("razonSocial").FirstOrDefault().Value.Trim()),
-                                "", //Cod cuenta
-                                "", //Detalle cuenta
-                                codDoc == "01" ? "F" : (codDoc == "04" ? "N/C" : (codDoc == "05" ? "N/D" : "")), //verificar si no por defecto factura.
-                                xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,
-                                xmlDoc.Descendants("estab").FirstOrDefault().Value,
-                                xmlDoc.Descendants("ptoEmi").FirstOrDefault().Value,
-                                xmlDoc.Descendants("secuencial").FirstOrDefault().Value,
-                                //xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,
-                                XTemp.Descendants("numeroAutorizacion").FirstOrDefault().Value,
-                                imponible, base0, base12, 0, ice,
-                                iva,    //IVA
-                                base0 + base12 + iva,   //Total
-
-                                //Retenciones
-                                0, 0, 0, 0, 0, 0,
-
-                                //Info comprobante de retencion
-                                "", "", "", "",
-
-                                //Retenciones
-                                "", "", "", 0,
-
-                                //Nota de debito o credito
-                                (codDoc == "04" || codDoc == "05") ? xmlDoc.Descendants("numDocModificado").FirstOrDefault().Value.Substring(0, 3) : "",
-                                (codDoc == "04" || codDoc == "05") ? xmlDoc.Descendants("numDocModificado").FirstOrDefault().Value.Substring(4, 3) : "",
-                                (codDoc == "04" || codDoc == "05") ? xmlDoc.Descendants("numDocModificado").FirstOrDefault().Value.Substring(8, 9) : ""
-                                );
+                                cargarRegistro(xmlDoc, checkBox.Checked, XTemp.Descendants("numeroAutorizacion").FirstOrDefault().Value);
 
                                 if (!inserts.Contains(xmlDoc.Descendants("ruc").FirstOrDefault().Value))
                                 {
@@ -232,6 +165,104 @@ namespace WinAppATS
             catch (Exception)
             {
                 MessageBox.Show("La carpeta solo debe contener comprobantes electrónicos", "Error al importar comprobantes electrónicos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void cargarRegistro(XDocument xmlDoc, bool gasolinera, string autorizacion)
+        {
+            double imponible = 0;
+            double base0 = 0;
+            double base12 = 0;
+            double ice = 0;
+            double descuentoAdicional = 0;
+
+            foreach (var totalImpuesto in xmlDoc.Descendants("totalImpuesto"))
+            {
+                switch (Int32.Parse(totalImpuesto.Descendants("codigoPorcentaje").FirstOrDefault().Value))
+                {
+                    case 0: base0 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                    case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                    case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                    case 6: imponible += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                    default:
+                        if (Int32.Parse(totalImpuesto.Descendants("codigo").FirstOrDefault().Value) == 3)
+                        {
+                            ice += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
+                        }
+                        break;
+                }
+
+                if (totalImpuesto.Descendants("descuentoAdicional").Any())
+                {
+                    descuentoAdicional += double.Parse(totalImpuesto.Descendants("descuentoAdicional").FirstOrDefault().Value.Replace('.', dec));
+                }
+            }
+
+            double iva = Math.Round(base12 * .12, 2);
+
+            string codCombustible = "";
+            //Si quiere detectar las facturas de gasolina o diesel
+            //if (gasolinera && xmlDoc.Elements("detalle").Count() == 1)
+            //{
+            //    switch (xmlDoc.Descendants("codigoPrincipal").FirstOrDefault().Value)
+            //    {
+            //        case "0103": codCombustible = "SÚPER"; break;
+            //        case "0101": codCombustible = "EXTRA"; break;
+            //        case "0174": codCombustible = "EXTRAE"; break;
+            //        case "0121": codCombustible = "DIESELP"; break;
+            //        case "0104": codCombustible = "DIESEL2"; break;
+            //    }
+            //}
+
+            string infoA = codCombustible;
+
+            if (xmlDoc.Descendants("tipoIdentificacionComprador").FirstOrDefault().Value == "05")
+            {
+                infoA += " xxx";
+            }
+
+            if (descuentoAdicional > 0)
+            {
+                infoA += " DA";
+            }
+
+            string codDoc = xmlDoc.Descendants("codDoc").FirstOrDefault().Value;
+
+            dgvCompras.Rows.Add(
+            infoA,
+            xmlDoc.Descendants("ruc").FirstOrDefault().Value,
+            removeOtherCharacter(xmlDoc.Descendants("razonSocial").FirstOrDefault().Value.Trim()),
+            "", //Cod cuenta
+            "", //Detalle cuenta
+            codDoc == "01" ? "F" : (codDoc == "04" ? "N/C" : (codDoc == "05" ? "N/D" : "")), //verificar si no por defecto factura.
+            xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,
+            xmlDoc.Descendants("estab").FirstOrDefault().Value,
+            xmlDoc.Descendants("ptoEmi").FirstOrDefault().Value,
+            xmlDoc.Descendants("secuencial").FirstOrDefault().Value,
+            //xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,
+            autorizacion,
+            imponible, base0, base12, 0, ice,
+            iva,    //IVA
+            base0 + base12 + iva,   //Total
+
+            //Retenciones
+            0, 0, 0, 0, 0, 0,
+
+            //Info comprobante de retencion
+            "", "", "", "",
+
+            //Retenciones
+            "", "", "", 0,
+
+            //Nota de debito o credito
+            (codDoc == "04" || codDoc == "05") ? xmlDoc.Descendants("numDocModificado").FirstOrDefault().Value.Substring(0, 3) : "",
+            (codDoc == "04" || codDoc == "05") ? xmlDoc.Descendants("numDocModificado").FirstOrDefault().Value.Substring(4, 3) : "",
+            (codDoc == "04" || codDoc == "05") ? xmlDoc.Descendants("numDocModificado").FirstOrDefault().Value.Substring(8, 9) : ""
+            );
+
+            if (descuentoAdicional > 0)
+            {
+                dgvCompras.Rows[dgvCompras.RowCount - 1].Cells[17].Style.BackColor = Color.Yellow;
             }
         }
 
@@ -279,58 +310,7 @@ namespace WinAppATS
 
                                 if (codDoc == "01" || codDoc == "04" || codDoc == "05")
                                 {
-                                    double imponible = 0;
-                                    double base0 = 0;
-                                    double base12 = 0;
-                                    double ice = 0;
-                                    foreach (var totalImpuesto in xmlDoc.Descendants("totalImpuesto"))
-                                    {
-                                        switch (Int32.Parse(totalImpuesto.Descendants("codigoPorcentaje").FirstOrDefault().Value))
-                                        {
-                                            case 0: base0 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                                            case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                                            case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                                            case 6: imponible += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                                            default:
-                                                if (Int32.Parse(totalImpuesto.Descendants("codigo").FirstOrDefault().Value) == 3)
-                                                {
-                                                    ice += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
-                                                }
-                                                break;
-                                        }
-                                    }
-                                    double iva = Math.Round(base12 * .12, 2);
-
-                                    dgvCompras.Rows.Add(
-                                        xmlDoc.Descendants("tipoIdentificacionComprador").FirstOrDefault().Value == "05" ? "XXX" : "",  //Codigo de compra debe ser nulo al final generar el codigo
-                                        xmlDoc.Descendants("ruc").FirstOrDefault().Value,
-                                        removeOtherCharacter(xmlDoc.Descendants("razonSocial").FirstOrDefault().Value.Trim()),
-                                        "", //Cod cuenta
-                                        "", //Detalle cuenta
-                                        codDoc == "01" ? "F" : (codDoc == "04" ? "N/C" : (codDoc == "05" ? "N/D" : "")), //verificar si no por defecto factura.
-                                        xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,
-                                        xmlDoc.Descendants("estab").FirstOrDefault().Value,
-                                        xmlDoc.Descendants("ptoEmi").FirstOrDefault().Value,
-                                        xmlDoc.Descendants("secuencial").FirstOrDefault().Value,
-                                        docResponse.GetElementsByTagName("numeroAutorizacion")[0].InnerXml.Trim(),
-                                        imponible, base0, base12, 0, ice,
-                                        iva,    //IVA
-                                        base0 + base12 + iva,   //Total
-
-                                        //Retenciones
-                                        0, 0, 0, 0, 0, 0,
-
-                                        //Info comprobante de retencion
-                                        "", "", "", "",
-
-                                        //Retenciones
-                                        "", "", "", 0,
-
-                                        //Nota de debito o credito
-                                        (codDoc == "04" || codDoc == "05") ? xmlDoc.Descendants("numDocModificado").FirstOrDefault().Value.Substring(0, 3) : "",
-                                        (codDoc == "04" || codDoc == "05") ? xmlDoc.Descendants("numDocModificado").FirstOrDefault().Value.Substring(4, 3) : "",
-                                        (codDoc == "04" || codDoc == "05") ? xmlDoc.Descendants("numDocModificado").FirstOrDefault().Value.Substring(8, 9) : ""
-                                        );
+                                    cargarRegistro(xmlDoc, false, docResponse.GetElementsByTagName("numeroAutorizacion")[0].InnerXml.Trim());
 
                                     if (!inserts.Contains(xmlDoc.Descendants("ruc").FirstOrDefault().Value))
                                     {

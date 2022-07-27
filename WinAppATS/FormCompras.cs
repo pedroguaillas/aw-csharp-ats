@@ -192,24 +192,35 @@ namespace WinAppATS
                 switch (tpId)
                 {
                     case 0:
-                        ResultSriRuc result = null;
-                        HttpClient client = new HttpClient();
+                        //ResultSriRuc result = null;
+                        //HttpClient client = new HttpClient();
 
-                        HttpResponseMessage response = await client.GetAsync($"https://srienlinea.sri.gob.ec/sri-catastro-sujeto-servicio-internet/rest/Persona/obtenerPorTipoIdentificacion?numeroIdentificacion={idContacto}&tipoIdentificacion=R");
-                        if (response.IsSuccessStatusCode)
+                        //HttpResponseMessage response = await client.GetAsync($"https://srienlinea.sri.gob.ec/sri-catastro-sujeto-servicio-internet/rest/Persona/obtenerPorTipoIdentificacion?numeroIdentificacion={idContacto}&tipoIdentificacion=R");
+                        //if (response.IsSuccessStatusCode)
+                        //{
+                        //    result = await response.Content.ReadAsAsync<ResultSriRuc>();
+                        //}
+                        //if (result != null)
+                        //{
+                        //    tbRazonS.Text = remplazar(result.nombreCompleto.Trim());
+                        //    tbDia.Focus();
+                        //}
+                        //else{
+                        //    MessageBox.Show("No es un RUC válido", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //}
+                        //break;
+
+                        contacto = await import.getContact(idContacto);
+                        if (contacto != null)
                         {
-                            result = await response.Content.ReadAsAsync<ResultSriRuc>();
-                        }
-                        if (result != null)
-                        {
-                            tbRazonS.Text = remplazar(result.nombreCompleto.Trim());
+                            tbRazonS.Text = contacto.denominacion.Trim();
                             tbDia.Focus();
                         }
-                        else{
-                            MessageBox.Show("No es un RUC válido", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        else
+                        {
+                            MessageBox.Show("Registre el nombre del proveedor, no se registrado", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         break;
-
                     case 1:
                         Validate validate = new Validate();
                         if (validate.validateMessage(tpId, idContacto))
@@ -824,7 +835,7 @@ namespace WinAppATS
             //dgv.importRecuperado();
             dgv.importRecuperadoMasiva();
             dgv.rellenarProveedores();
-            dgv.rellenarProveedoresMasivo();
+            //dgv.rellenarProveedoresMasivo();
             sumcolumns();
         }
 

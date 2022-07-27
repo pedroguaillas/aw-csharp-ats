@@ -13,7 +13,6 @@ namespace WinAppATS
 
         public string completeCounts(string code)
         {
-
             DataSet data = new DataSet("cuentas");
             using (XmlReader xml = XmlReader.Create(filename))
             {
@@ -24,6 +23,23 @@ namespace WinAppATS
                 if (results.Length > 0)
                 {
                     return results[0]["description"].ToString();
+                }
+            }
+            return "";
+        }
+
+        public string getCodSustento(string code)
+        {
+            DataSet data = new DataSet("cuentas");
+            using (XmlReader xml = XmlReader.Create(filename))
+            {
+                data.ReadXml(xml);
+
+                DataRow[] results = data.Tables[0].Select(string.Format("code = '{0}'", code));
+
+                if (results.Length > 0)
+                {
+                    return results[0]["tst"].ToString();
                 }
             }
             return "";

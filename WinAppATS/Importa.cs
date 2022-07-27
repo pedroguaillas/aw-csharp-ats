@@ -34,8 +34,6 @@ namespace WinAppATS
             return path;
         }
 
-        public virtual void Importar(DataGridView dgvResult) { }
-
         public string addCeroFirst(string cadena)
         {
             if (cadena.StartsWith("."))

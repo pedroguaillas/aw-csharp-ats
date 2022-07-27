@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace WinAppATS
 {
-    class Archivo : Importa
+    class Archivo
     {
 
         public void saveError(string error, string path)
@@ -89,7 +89,7 @@ namespace WinAppATS
             }
         }
 
-        private string miCarpeta(string type, string name)
+        protected string miCarpeta(string type, string name)
         {
             string carpeta = "";
 

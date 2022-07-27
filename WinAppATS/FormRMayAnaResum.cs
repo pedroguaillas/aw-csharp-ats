@@ -63,6 +63,7 @@ namespace WinAppATS
                 ReportDataSource report = new ReportDataSource("dsCompras", dataTable);
                 this.reportViewer1.ServerReport.BearerToken = null;
                 this.reportViewer1.TabIndex = 0;
+                this.reportViewer1.LocalReport.DisplayName = "RESUMEN MAYOR ANALITICO";
                 this.reportViewer1.LocalReport.ReportPath = Const.filereport("RMayAnaResum");
                 this.reportViewer1.LocalReport.DataSources.Clear();
                 this.reportViewer1.LocalReport.DataSources.Add(report);
