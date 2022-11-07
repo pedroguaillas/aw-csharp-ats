@@ -23,7 +23,7 @@ namespace WinAppATS
             // Create a new file     
             using (StreamWriter sw = fi.CreateText())
             {
-                sw.WriteLine(error.Substring(2));
+                sw.WriteLine(error.Trim());
             }
             MessageBox.Show("El Servicio Web del SRI no permitio la descarga de todos los comprobantes, por favor revisa el archivo " + path + " de los comprobantes que no se pudo descargar");
         }

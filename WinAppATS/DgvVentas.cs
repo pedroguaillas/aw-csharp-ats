@@ -250,6 +250,57 @@ namespace WinAppATS
             }
         }
 
+        public void descargarError(ProgressBar bar)
+        {
+            Importa importa = new Importa();
+            string file = importa.selectFile("txt");
+            string line = "";
+            string problems = "";
+
+            if (file != null)
+            {
+                StreamReader countlines = new StreamReader(file);
+                int linesLength = 0;
+                while ((line = countlines.ReadLine()) != null)
+                {
+                    linesLength++;
+                }
+
+                StreamReader stream = new StreamReader(file);
+                file = file.Substring(0, file.Length - 4);
+                bar.Visible = true;
+                int i = 0;
+
+                while ((line = stream.ReadLine()) != null)
+                {
+                    string[] palabras = line.Split('\t');
+                    string code = palabras[0];
+                    AutorizacionFacturas af = new AutorizacionFacturas();
+                    if (!af.Descarga(code, @"" + file + "/xml"))
+                    {
+                        if (!af.Descarga(code, @"" + file + "/xml"))
+                        {
+                            if (!af.Descarga(code, @"" + file + "/xml"))
+                            {
+                                problems += "\n" + code;
+                            }
+                        }
+                    }
+                    bar.Value = (i * 100) / linesLength;
+                    i++;
+                }
+
+                bar.Visible = false;
+
+                if (problems.Length > 0)
+                {
+                    string path = @"" + file + "/Error_new.txt";
+                    Archivo archivo = new Archivo();
+                    archivo.saveError(problems, path);
+                }
+            }
+        }
+
         private List<string> myAutorizaciones(string path)
         {
             List<String> cla_accs = new List<string>();
@@ -528,11 +579,11 @@ namespace WinAppATS
                     {
                         case 1:
                             porcienrenta = double.Parse(impuesto.Descendants("porcentajeRetener").FirstOrDefault().Value.Replace('.', dec));
-                            valRetRenta = double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
+                            valRetRenta += double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
                             break;
                         case 2:
                             porcieniva = (int)Math.Round(double.Parse(impuesto.Descendants("porcentajeRetener").FirstOrDefault().Value.Replace('.', dec)));
-                            valRetIva = double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
+                            valRetIva += double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
                             break;
                     }
                 }
@@ -609,11 +660,11 @@ namespace WinAppATS
                     {
                         case 1:
                             porcienrenta = double.Parse(impuesto.Descendants("porcentajeRetener").FirstOrDefault().Value.Replace('.', dec));
-                            valRetRenta = double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
+                            valRetRenta += double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
                             break;
                         case 2:
                             porcieniva = (int)Math.Round(double.Parse(impuesto.Descendants("porcentajeRetener").FirstOrDefault().Value.Replace('.', dec)));
-                            valRetIva = double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
+                            valRetIva += double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
                             break;
                     }
                 }
@@ -667,6 +718,7 @@ namespace WinAppATS
             try
             {
                 string path = selectFile("xml");
+                var attr = "";
                 if (path != null && (path.EndsWith(".xml") || path.EndsWith(".XML")))
                 {
                     XElement xmlDoc = XElement.Load(path);
@@ -681,35 +733,39 @@ namespace WinAppATS
                     {
                         foreach (var detalleCompras in xmlDoc.Descendants("detalleVentas"))
                         {
-                            var tipoComprobante = detalleCompras.Descendants("tipoComprobante").FirstOrDefault().Value;
+                            //detalleCompras.LastAttribute.Value;
+                            //if (detalleCompras.LastAttribute.Value.ToString()!="true")
+                            //{
+                                var tipoComprobante = detalleCompras.Descendants("tipoComprobante").FirstOrDefault().Value;
 
-                            var baseImponible = decimal.Parse(detalleCompras.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', ','));
-                            var baseImpGrav = decimal.Parse(detalleCompras.Descendants("baseImpGrav").FirstOrDefault().Value.Replace('.', ','));
-                            var montoIce = detalleCompras.Descendants("montoIce").Any() ? decimal.Parse(detalleCompras.Descendants("montoIce").FirstOrDefault().Value.Replace('.', ',')) : 0;
-                            var montoIva = decimal.Parse(detalleCompras.Descendants("montoIva").FirstOrDefault().Value.Replace('.', ','));
+                                var baseImponible = decimal.Parse(detalleCompras.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', ','));
+                                var baseImpGrav = decimal.Parse(detalleCompras.Descendants("baseImpGrav").FirstOrDefault().Value.Replace('.', ','));
+                                var montoIce = detalleCompras.Descendants("montoIce").Any() ? decimal.Parse(detalleCompras.Descendants("montoIce").FirstOrDefault().Value.Replace('.', ',')) : 0;
+                                var montoIva = decimal.Parse(detalleCompras.Descendants("montoIva").FirstOrDefault().Value.Replace('.', ','));
 
-                            decimal valorRetRenta = decimal.Parse(detalleCompras.Descendants("valorRetRenta").FirstOrDefault().Value.Replace('.', ','));
-                            decimal valorRetIva = decimal.Parse(detalleCompras.Descendants("valorRetIva").FirstOrDefault().Value.Replace('.', ','));
+                                decimal valorRetRenta = decimal.Parse(detalleCompras.Descendants("valorRetRenta").FirstOrDefault().Value.Replace('.', ','));
+                                decimal valorRetIva = decimal.Parse(detalleCompras.Descendants("valorRetIva").FirstOrDefault().Value.Replace('.', ','));
 
-                            dgvV.Rows.Add(
-                                detalleCompras.Descendants("idCliente").FirstOrDefault().Value,
-                                "",//Cliente
-                                detalleCompras.Descendants("tpIdCliente").FirstOrDefault().Value,
-                                "",//No hay fecha
-                                tipoComprobante == "18" ? "F" : (tipoComprobante == "04" ? "N/C" : ""),
-                                "",//# Comprobante
-                                (double)(baseImponible + baseImpGrav),
-                                (double)baseImponible,
-                                (double)baseImpGrav,
-                                (double)montoIce,
-                                (double)montoIva,
-                                (double)(baseImponible + baseImpGrav + montoIva),  //Total
-                                valorRetRenta > 0 && (baseImponible + baseImpGrav) > 0 ? Math.Round(100 * valorRetRenta / (baseImponible + baseImpGrav), 2) : 0,//%Renta
-                                valorRetIva > 0 && montoIva > 0 ? Math.Round(100 * valorRetIva / montoIva) : 0,//%Iva
-                                (double)valorRetRenta,
-                                (double)valorRetIva,
-                                ""
-                                );
+                                dgvV.Rows.Add(
+                                    detalleCompras.Descendants("idCliente").FirstOrDefault().Value,
+                                    "",//Cliente
+                                    detalleCompras.Descendants("tpIdCliente").FirstOrDefault().Value,
+                                    "",//No hay fecha
+                                    tipoComprobante == "18" ? "F" : (tipoComprobante == "04" ? "N/C" : ""),
+                                    "",//# Comprobante
+                                    (double)(baseImponible + baseImpGrav),
+                                    (double)baseImponible,
+                                    (double)baseImpGrav,
+                                    (double)montoIce,
+                                    (double)montoIva,
+                                    (double)(baseImponible + baseImpGrav + montoIva),  //Total
+                                    valorRetRenta > 0 && (baseImponible + baseImpGrav) > 0 ? Math.Round(100 * valorRetRenta / (baseImponible + baseImpGrav), 2) : 0,//%Renta
+                                    valorRetIva > 0 && montoIva > 0 ? Math.Round(100 * valorRetIva / montoIva) : 0,//%Iva
+                                    (double)valorRetRenta,
+                                    (double)valorRetIva,
+                                    ""
+                                    );
+                            //}
                         }
                         dgvV.FirstDisplayedScrollingRowIndex = dgvV.Rows.Count - 1;
                     }

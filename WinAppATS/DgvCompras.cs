@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -134,7 +135,7 @@ namespace WinAppATS
 
                             string codDoc = xmlDoc.Descendants("codDoc").FirstOrDefault().Value;
 
-                            if (codDoc == "01" || codDoc == "04" || codDoc == "05")
+                            if (codDoc == "01" || codDoc == "03" || codDoc == "04" || codDoc == "05")
                             {
                                 cargarRegistro(xmlDoc, checkBox.Checked, XTemp.Descendants("numeroAutorizacion").FirstOrDefault().Value);
 
@@ -143,8 +144,8 @@ namespace WinAppATS
                                     var obj = new
                                     {
                                         id = xmlDoc.Descendants("ruc").FirstOrDefault().Value,
-                                        denominacion = xmlDoc.Descendants("razonSocial").FirstOrDefault().Value.Trim(),
-                                        tpId = "01",
+                                        denominacion = xmlDoc.Descendants("razonSocial" + (codDoc == "03" ? "Proveedor" : "")).FirstOrDefault().Value.Trim(),
+                                        tpId = codDoc == "03" ? "02" : "01",
                                         //tpIdProv = "", //Especial se registra en el servidor con el valor 01-RUC
                                         //tipoProv = "", //Se calcula en servidor en base al tercer digo de la identificacion 01-Persona natural / 02-Sociedad
                                         //xmlDoc.Descendants("contribuyenteEspecial").Any() //Dato extra
@@ -216,7 +217,7 @@ namespace WinAppATS
 
             string infoA = codCombustible;
 
-            if (xmlDoc.Descendants("tipoIdentificacionComprador").FirstOrDefault().Value == "05")
+            if (xmlDoc.Descendants("tipoIdentificacionComprador").Any() && xmlDoc.Descendants("tipoIdentificacionComprador").FirstOrDefault().Value == "05")
             {
                 infoA += " xxx";
             }
@@ -230,16 +231,15 @@ namespace WinAppATS
 
             dgvCompras.Rows.Add(
             infoA,
-            xmlDoc.Descendants("ruc").FirstOrDefault().Value,
-            removeOtherCharacter(xmlDoc.Descendants("razonSocial").FirstOrDefault().Value.Trim()),
+            xmlDoc.Descendants(codDoc == "03" ? "identificacionProveedor" : "ruc").FirstOrDefault().Value,
+            removeOtherCharacter(xmlDoc.Descendants("razonSocial" + (codDoc == "03" ? "Proveedor" : "")).FirstOrDefault().Value.Trim()),
             "", //Cod cuenta
             "", //Detalle cuenta
-            codDoc == "01" ? "F" : (codDoc == "04" ? "N/C" : (codDoc == "05" ? "N/D" : "")), //verificar si no por defecto factura.
+            typeCom(codDoc), //verificar si no por defecto factura.
             xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,
             xmlDoc.Descendants("estab").FirstOrDefault().Value,
             xmlDoc.Descendants("ptoEmi").FirstOrDefault().Value,
             xmlDoc.Descendants("secuencial").FirstOrDefault().Value,
-            //xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,
             autorizacion,
             imponible, base0, base12, 0, ice,
             iva,    //IVA
@@ -264,6 +264,21 @@ namespace WinAppATS
             {
                 dgvCompras.Rows[dgvCompras.RowCount - 1].Cells[17].Style.BackColor = Color.Yellow;
             }
+        }
+
+        public string typeCom(string cod)
+        {
+            string result = "";
+
+            switch (cod)
+            {
+                case "01": result = "F"; break;
+                case "03": result = "L/C"; break;
+                case "04": result = "N/C"; break;
+                case "05": result = "N/D"; break;
+            }
+
+            return result;
         }
 
         public void importReport(ProgressBar bar)
@@ -1361,7 +1376,7 @@ namespace WinAppATS
             List<string> providers = new List<string>();
             foreach (DataGridViewRow row in dgvCompras.Rows)
             {
-                if ((row.Cells[2].Value == null || row.Cells[2].Value.Equals("")) && !providers.Contains(row.Cells[1].Value))
+                if ((row.Cells[2].Value == null || row.Cells[2].Value.Equals("")) && row.Cells[1].Value.ToString().Length == 13 && !providers.Contains(row.Cells[1].Value))
                 {
                     enc = true;
                     providers.Add(row.Cells[1].Value.ToString());
@@ -1375,17 +1390,19 @@ namespace WinAppATS
 
                 foreach (var idContacto in providers)
                 {
-                    ResultSriRuc result = null;
-                    HttpClient client = new HttpClient();
+                    ResultSriRuc resultSriRuc = new ResultSriRuc();
+                    RestClient client = new RestClient();
+                    var request = new RestRequest("https://srienlinea.sri.gob.ec/sri-catastro-sujeto-servicio-internet/rest/Persona/obtenerPorTipoIdentificacion", Method.Get);
 
-                    HttpResponseMessage response = await client.GetAsync($"https://srienlinea.sri.gob.ec/sri-catastro-sujeto-servicio-internet/rest/Persona/obtenerPorTipoIdentificacion?numeroIdentificacion={idContacto}&tipoIdentificacion=R");
-                    if (response.IsSuccessStatusCode)
+                    request.AddParameter("numeroIdentificacion", idContacto);
+                    request.AddParameter("tipoIdentificacion", "R");
+                    var response = client.Execute(request);
+
+                    if (response.IsSuccessful)
                     {
-                        result = await response.Content.ReadAsAsync<ResultSriRuc>();
-                    }
-                    if (result != null)
-                    {
-                        contactos.Add(new Contacto(idContacto, result.nombreCompleto.Trim()));
+                        var result = response.Content;
+                        var resultado = JsonConvert.DeserializeObject<ResultSriRuc>(result);
+                        contactos.Add(new Contacto(idContacto, resultado.nombreCompleto.Trim()));
                     }
                 }
 

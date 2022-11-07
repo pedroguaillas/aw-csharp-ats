@@ -281,6 +281,7 @@ namespace WinAppATS
         {
             string searchValue = tbSearchValue.Text;
             int column = cbColumn.SelectedIndex;
+            column = column == 6 ? 16 : column;
 
             try
             {
@@ -288,7 +289,7 @@ namespace WinAppATS
                 for (; searchRow < dgvVentas.Rows.Count; searchRow++)
                 {
                     row = dgvVentas.Rows[searchRow];
-                    if (row.Cells[column].Value.ToString().Equals(searchValue) || (column == 5 && int.Parse(row.Cells[column].Value.ToString().Substring(row.Cells[column].Value.ToString().Length - 9)) == int.Parse(searchValue)))
+                    if (row.Cells[column].Value != null && row.Cells[column].Value.ToString().Length > 0 && (row.Cells[column].Value.ToString().Equals(searchValue) || ((column == 5 || column == 16) && int.Parse(row.Cells[column].Value.ToString().Substring(row.Cells[column].Value.ToString().Length - 9)) == int.Parse(searchValue))))
                     {
                         row.Selected = true;
                         dgvVentas.FirstDisplayedScrollingRowIndex = row.Index;
@@ -633,6 +634,7 @@ namespace WinAppATS
         private void btnDescargar_Click(object sender, EventArgs e)
         {
             dgv.descarga(pgbImport);
+            //dgv.descargarError(pgbImport);
         }
 
         private void dgvVentas_SelectionChanged(object sender, EventArgs e)
@@ -682,9 +684,9 @@ namespace WinAppATS
             {
                 for (int i = 0; i < dgvVentas.Rows.Count; i++)
                 {
-                    b0 += double.Parse(dgvVentas.Rows[i].Cells[7].Value.ToString()) * (dgvVentas.Rows[i].Cells[5].Value.ToString().Equals("N/C") ? -1 : 1);
-                    b12 += double.Parse(dgvVentas.Rows[i].Cells[8].Value.ToString()) * (dgvVentas.Rows[i].Cells[5].Value.ToString().Equals("N/C") ? -1 : 1);
-                    iva += double.Parse(dgvVentas.Rows[i].Cells[10].Value.ToString()) * (dgvVentas.Rows[i].Cells[5].Value.ToString().Equals("N/C") ? -1 : 1);
+                    b0 += double.Parse(dgvVentas.Rows[i].Cells[7].Value.ToString()) * (dgvVentas.Rows[i].Cells[4].Value.ToString().Equals("N/C") ? -1 : 1);
+                    b12 += double.Parse(dgvVentas.Rows[i].Cells[8].Value.ToString()) * (dgvVentas.Rows[i].Cells[4].Value.ToString().Equals("N/C") ? -1 : 1);
+                    iva += double.Parse(dgvVentas.Rows[i].Cells[10].Value.ToString()) * (dgvVentas.Rows[i].Cells[4].Value.ToString().Equals("N/C") ? -1 : 1);
                     vrr += double.Parse(dgvVentas.Rows[i].Cells[14].Value.ToString());
                     vri += double.Parse(dgvVentas.Rows[i].Cells[15].Value.ToString());
                 }

@@ -5,7 +5,8 @@ using System.Globalization;
 using System.Drawing;
 using System.IO;
 using WinAppATS.Class;
-using System.Net.Http;
+using RestSharp;
+using Newtonsoft.Json;
 
 namespace WinAppATS
 {
@@ -192,34 +193,21 @@ namespace WinAppATS
                 switch (tpId)
                 {
                     case 0:
-                        //ResultSriRuc result = null;
-                        //HttpClient client = new HttpClient();
+                        ResultSriRuc resultSriRuc = new ResultSriRuc();
+                        RestClient client = new RestClient();
+                        var request = new RestRequest("https://srienlinea.sri.gob.ec/sri-catastro-sujeto-servicio-internet/rest/Persona/obtenerPorTipoIdentificacion", Method.Get);
 
-                        //HttpResponseMessage response = await client.GetAsync($"https://srienlinea.sri.gob.ec/sri-catastro-sujeto-servicio-internet/rest/Persona/obtenerPorTipoIdentificacion?numeroIdentificacion={idContacto}&tipoIdentificacion=R");
-                        //if (response.IsSuccessStatusCode)
-                        //{
-                        //    result = await response.Content.ReadAsAsync<ResultSriRuc>();
-                        //}
-                        //if (result != null)
-                        //{
-                        //    tbRazonS.Text = remplazar(result.nombreCompleto.Trim());
-                        //    tbDia.Focus();
-                        //}
-                        //else{
-                        //    MessageBox.Show("No es un RUC válido", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //}
-                        //break;
+                        request.AddParameter("numeroIdentificacion", idContacto);
+                        request.AddParameter("tipoIdentificacion", "R");
+                        var response = client.Execute(request);
 
-                        contacto = await import.getContact(idContacto);
-                        if (contacto != null)
+                        if (response.IsSuccessful)
                         {
-                            tbRazonS.Text = contacto.denominacion.Trim();
-                            tbDia.Focus();
+                            var result = response.Content;
+                            var resultado = JsonConvert.DeserializeObject<ResultSriRuc>(result);
+                            tbRazonS.Text = remplazar(resultado.nombreCompleto.Trim());
                         }
-                        else
-                        {
-                            MessageBox.Show("Registre el nombre del proveedor, no se registrado", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        tbDia.Focus();
                         break;
                     case 1:
                         Validate validate = new Validate();
@@ -832,10 +820,10 @@ namespace WinAppATS
 
         private void btnRecuperado_Click(object sender, EventArgs e)
         {
-            //dgv.importRecuperado();
-            dgv.importRecuperadoMasiva();
+            dgv.importRecuperado();
+            //dgv.importRecuperadoMasiva();
             dgv.rellenarProveedores();
-            //dgv.rellenarProveedoresMasivo();
+            dgv.rellenarProveedoresMasivo();
             sumcolumns();
         }
 

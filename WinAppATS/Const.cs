@@ -18,9 +18,7 @@ namespace WinAppATS
 
         //Ruta servidor
         public static string URL = @"http://ats.auditwhole.com/";
-        //public static string URL = @"http://api0.auditwhole.com/public/";
         //public static string URL = @"http://localhost:8000/";
-        //public static string URL = @"http://127.0.0.1:8000/api/"; //Solo para migrar base de datos
 
         public static double IVA = .12;
 

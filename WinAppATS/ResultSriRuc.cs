@@ -11,6 +11,6 @@ namespace WinAppATS
         public string identificacion { get; set; }
         public string nombreCompleto { get; set; }
         public string tipoPersona { get; set; }
-        public string codigoPersona { get; set; }
+        public int codigoPersona { get; set; }
     }
 }

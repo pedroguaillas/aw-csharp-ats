@@ -149,7 +149,7 @@ namespace WinAppATS
 
                 //Agrupar por establecimiento
                 var query = xmlDoc.Root.Elements("venta")
-                    .Where(w => w.Element("com").Value != "" && w.Element("com").Value.Substring(0, 3) != "000" && w.Element("com").Value.ToString().Length > 2)
+                    .Where(w => w.Element("com") != null && w.Element("com").Value != "" && w.Element("com").Value.Substring(0, 3) != "000" && w.Element("com").Value.ToString().Length > 2)
                      .GroupBy(g => g.Element("com").Value.Substring(0, 3))
                      .Select(s => new
                      {
@@ -276,16 +276,13 @@ namespace WinAppATS
 
                         foreach (var meth in comp.g)
                         {
-                            if (int.Parse(tcv(_(compra, ("TCV")))) < 4)
-                            {
-                                XmlElement detalleAir = doc.CreateElement(string.Empty, "detalleAir", string.Empty);
-                                air.AppendChild(detalleAir);
+                            XmlElement detalleAir = doc.CreateElement(string.Empty, "detalleAir", string.Empty);
+                            air.AppendChild(detalleAir);
 
-                                createElement(detalleAir, doc, "codRetAir", _(meth, ("cda")));
-                                createElement(detalleAir, doc, "baseImpAir", dec((float.Parse((string)meth.Element("b0")) + float.Parse((string)meth.Element("b12")) - float.Parse((string)meth.Element("mi"))).ToString()));
-                                createElement(detalleAir, doc, "porcentajeAir", dec(_(meth, ("por"))));
-                                createElement(detalleAir, doc, "valRetAir", dec(_(meth, ("vra"))));
-                            }
+                            createElement(detalleAir, doc, "codRetAir", _(meth, ("cda")));
+                            createElement(detalleAir, doc, "baseImpAir", dec((float.Parse((string)meth.Element("b0")) + float.Parse((string)meth.Element("b12")) - float.Parse((string)meth.Element("mi"))).ToString()));
+                            createElement(detalleAir, doc, "porcentajeAir", dec(_(meth, ("por"))));
+                            createElement(detalleAir, doc, "valRetAir", dec(_(meth, ("vra"))));
                         }
 
                         //Si las retencionoes no son 332 deben tener mas info
@@ -364,6 +361,18 @@ namespace WinAppATS
                 return count.getCodSustento(cuenta);
             }
             return "";
+        }
+
+        private float _d(XElement element, string name)
+        {
+            float n;
+
+            if (element.Element(name) != null && float.TryParse(element.Element(name).Value, out n))
+            {
+                return float.Parse(element.Element(name).Value);
+            }
+
+            return 0;
         }
 
         private string _(XElement element, string name)
