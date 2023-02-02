@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -438,6 +439,63 @@ namespace WinAppATS
 
             dgvV.FirstDisplayedScrollingRowIndex = dgvV.Rows.Count - 1;
         }
+        public void importReportText(ProgressBar bar)
+        {
+            Importa importa = new Importa();
+            string folder = importa.selectFolder();
+
+            if (folder == null) { return; }
+
+            string[] files = Directory.GetFiles(folder);
+            string problems = "";
+
+            //bar.Visible = true;
+
+            foreach (var file in files)
+            {
+                if (file.EndsWith(".txt"))
+                {
+                    string line = "";
+                    StreamReader filer = new StreamReader(file);
+                    int i = 0;
+
+                    while ((line = filer.ReadLine()) != null)
+                    {
+                        string[] palabras = line.Split('\t');
+                        if (i % 2 == 0 && i > 0)
+                        {
+                            dgvV.Rows.Add(
+                                palabras[8],
+                                "",     //Razon social
+                                "04",
+                                //xmlDoc.Descendants("tipoIdentificacionSujetoRetenido").FirstOrDefault().Value,
+                                palabras[5],     //Fecha
+                                "F",    //Tipo comprobante venta
+                                palabras[1],
+                                0, 0, 0,
+                                0,      //Monto ICE
+                                0, 0,   //IVA y Total
+                                0,
+                                0,
+                                0,
+                                0,
+                                ""
+                            );
+                        }
+                        else
+                        {
+                            if (i > 1)
+                            {
+                                dgvV.Rows[dgvV.Rows.Count - 1].Cells[11].Value = palabras[0];
+                            }
+                        }
+                        i++;
+                    }
+                }
+            }
+
+            dgvV.FirstDisplayedScrollingRowIndex = dgvV.Rows.Count - 1;
+        }
 
         private List<string> extraerAutorizaciones()
         {
@@ -564,17 +622,19 @@ namespace WinAppATS
             // Verificar q maximo tenga 2 impuestos
             if (xmlDoc.Descendants(tax).Count() < 3)
             {
+                string codDocSustento = "";
                 string comprobante = "";
                 int porcieniva = 0;
                 double porcienrenta = 0;
                 double valRetIva = 0;
                 double valRetRenta = 0;
 
+                //NOTA: En la version 2 el numDocSustento esta fuera de las etiquetas retenciones
+                codDocSustento = xmlDoc.Descendants("codDocSustento").Any() ? xmlDoc.Descendants("codDocSustento").FirstOrDefault().Value : "";
+                comprobante = xmlDoc.Descendants("numDocSustento").Any() ? xmlDoc.Descendants("numDocSustento").FirstOrDefault().Value : "";
+
                 foreach (var impuesto in xmlDoc.Descendants(tax))
                 {
-                    //NOTA: En la version 2 el numDocSustento esta fuera de las etiquetas retenciones
-                    comprobante = xmlDoc.Descendants("numDocSustento").FirstOrDefault().Value;
-
                     switch (Int32.Parse(impuesto.Descendants("codigo").FirstOrDefault().Value))
                     {
                         case 1:
@@ -589,7 +649,8 @@ namespace WinAppATS
                 }
 
                 //Si la retencion es de una factura entonces el numero de compronte va ser mayor a 0
-                if (Int64.Parse(comprobante) > 0)
+                //Y codDocSustento es de la factura (01) o Liquidacion en Compra (03)
+                if (Int64.Parse(comprobante) > 0 && (codDocSustento == "01" || codDocSustento == "03"))
                 {
                     foreach (DataGridViewRow row in dgvV.Rows)
                     {
@@ -736,35 +797,35 @@ namespace WinAppATS
                             //detalleCompras.LastAttribute.Value;
                             //if (detalleCompras.LastAttribute.Value.ToString()!="true")
                             //{
-                                var tipoComprobante = detalleCompras.Descendants("tipoComprobante").FirstOrDefault().Value;
+                            var tipoComprobante = detalleCompras.Descendants("tipoComprobante").FirstOrDefault().Value;
 
-                                var baseImponible = decimal.Parse(detalleCompras.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', ','));
-                                var baseImpGrav = decimal.Parse(detalleCompras.Descendants("baseImpGrav").FirstOrDefault().Value.Replace('.', ','));
-                                var montoIce = detalleCompras.Descendants("montoIce").Any() ? decimal.Parse(detalleCompras.Descendants("montoIce").FirstOrDefault().Value.Replace('.', ',')) : 0;
-                                var montoIva = decimal.Parse(detalleCompras.Descendants("montoIva").FirstOrDefault().Value.Replace('.', ','));
+                            var baseImponible = decimal.Parse(detalleCompras.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', ','));
+                            var baseImpGrav = decimal.Parse(detalleCompras.Descendants("baseImpGrav").FirstOrDefault().Value.Replace('.', ','));
+                            var montoIce = detalleCompras.Descendants("montoIce").Any() ? decimal.Parse(detalleCompras.Descendants("montoIce").FirstOrDefault().Value.Replace('.', ',')) : 0;
+                            var montoIva = decimal.Parse(detalleCompras.Descendants("montoIva").FirstOrDefault().Value.Replace('.', ','));
 
-                                decimal valorRetRenta = decimal.Parse(detalleCompras.Descendants("valorRetRenta").FirstOrDefault().Value.Replace('.', ','));
-                                decimal valorRetIva = decimal.Parse(detalleCompras.Descendants("valorRetIva").FirstOrDefault().Value.Replace('.', ','));
+                            decimal valorRetRenta = decimal.Parse(detalleCompras.Descendants("valorRetRenta").FirstOrDefault().Value.Replace('.', ','));
+                            decimal valorRetIva = decimal.Parse(detalleCompras.Descendants("valorRetIva").FirstOrDefault().Value.Replace('.', ','));
 
-                                dgvV.Rows.Add(
-                                    detalleCompras.Descendants("idCliente").FirstOrDefault().Value,
-                                    "",//Cliente
-                                    detalleCompras.Descendants("tpIdCliente").FirstOrDefault().Value,
-                                    "",//No hay fecha
-                                    tipoComprobante == "18" ? "F" : (tipoComprobante == "04" ? "N/C" : ""),
-                                    "",//# Comprobante
-                                    (double)(baseImponible + baseImpGrav),
-                                    (double)baseImponible,
-                                    (double)baseImpGrav,
-                                    (double)montoIce,
-                                    (double)montoIva,
-                                    (double)(baseImponible + baseImpGrav + montoIva),  //Total
-                                    valorRetRenta > 0 && (baseImponible + baseImpGrav) > 0 ? Math.Round(100 * valorRetRenta / (baseImponible + baseImpGrav), 2) : 0,//%Renta
-                                    valorRetIva > 0 && montoIva > 0 ? Math.Round(100 * valorRetIva / montoIva) : 0,//%Iva
-                                    (double)valorRetRenta,
-                                    (double)valorRetIva,
-                                    ""
-                                    );
+                            dgvV.Rows.Add(
+                                detalleCompras.Descendants("idCliente").FirstOrDefault().Value,
+                                "",//Cliente
+                                detalleCompras.Descendants("tpIdCliente").FirstOrDefault().Value,
+                                "",//No hay fecha
+                                tipoComprobante == "18" ? "F" : (tipoComprobante == "04" ? "N/C" : ""),
+                                "",//# Comprobante
+                                (double)(baseImponible + baseImpGrav),
+                                (double)baseImponible,
+                                (double)baseImpGrav,
+                                (double)montoIce,
+                                (double)montoIva,
+                                (double)(baseImponible + baseImpGrav + montoIva),  //Total
+                                valorRetRenta > 0 && (baseImponible + baseImpGrav) > 0 ? Math.Round(100 * valorRetRenta / (baseImponible + baseImpGrav), 2) : 0,//%Renta
+                                valorRetIva > 0 && montoIva > 0 ? Math.Round(100 * valorRetIva / montoIva) : 0,//%Iva
+                                (double)valorRetRenta,
+                                (double)valorRetIva,
+                                ""
+                                );
                             //}
                         }
                         dgvV.FirstDisplayedScrollingRowIndex = dgvV.Rows.Count - 1;
@@ -839,6 +900,108 @@ namespace WinAppATS
             catch (Exception)
             {
                 MessageBox.Show("No es un ATS recuperado del SRI", "Error al importar ATS recuperado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        public async void rellenarClientes()
+        {
+            bool enc = false;
+            List<string> providers = new List<string>();
+            foreach (DataGridViewRow row in dgvV.Rows)
+            {
+                if ((row.Cells[1].Value == null || row.Cells[1].Value.ToString().Trim().Equals("")) && !providers.Contains(row.Cells[0].Value.ToString().Trim()))
+                {
+                    enc = true;
+                    providers.Add(row.Cells[0].Value.ToString().Trim());
+                }
+            }
+
+            if (enc)
+            {
+                ImportContactos import = new ImportContactos();
+                List<Contacto> contactos = await import.getContactMasive(providers);
+
+                if (contactos != null)
+                {
+                    foreach (DataGridViewRow row in dgvV.Rows)
+                    {
+                        if (row.Cells[1].Value == null || row.Cells[1].Value.ToString().Trim().Equals(""))
+                        {
+                            int pos = -1;
+                            int i = 0;
+                            while (i < contactos.Count && pos == -1)
+                            {
+                                if (contactos[i].id.Equals(row.Cells[0].Value.ToString().Trim()))
+                                {
+                                    row.Cells[1].Value = contactos[i].denominacion.Trim();
+                                    pos = i;
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public async void rellenarClientesMasivo()
+        {
+            bool enc = false;
+            List<string> providers = new List<string>();
+            foreach (DataGridViewRow row in dgvV.Rows)
+            {
+                if ((row.Cells[1].Value == null || row.Cells[1].Value.ToString().Trim().Equals("")) && (row.Cells[0].Value.ToString().Length == 13 || row.Cells[0].Value.ToString().Length == 10) && !providers.Contains(row.Cells[0].Value))
+                {
+                    enc = true;
+                    providers.Add(row.Cells[0].Value.ToString());
+                }
+            }
+
+            if (enc)
+            {
+                ImportContactos import = new ImportContactos();
+                List<Contacto> contactos = new List<Contacto>();
+
+                foreach (var idContacto in providers)
+                {
+                    ResultSriRuc resultSriRuc = new ResultSriRuc();
+                    RestClient client = new RestClient();
+                    var request = new RestRequest("https://srienlinea.sri.gob.ec/sri-catastro-sujeto-servicio-internet/rest/Persona/obtenerPorTipoIdentificacion", Method.Get);
+
+                    request.AddParameter("numeroIdentificacion", idContacto.Length == 10 ? idContacto + @"001" : idContacto);
+                    request.AddParameter("tipoIdentificacion", "R");
+                    var response = client.Execute(request);
+
+                    if (response.IsSuccessful)
+                    {
+                        var result = response.Content;
+                        if (result != "")
+                        {
+                            var resultado = JsonConvert.DeserializeObject<ResultSriRuc>(result);
+                            contactos.Add(new Contacto(idContacto, resultado.nombreCompleto.Trim()));
+                        }
+                    }
+                }
+
+                if (contactos != null)
+                {
+                    foreach (DataGridViewRow row in dgvV.Rows)
+                    {
+                        if (row.Cells[1].Value == null || row.Cells[1].Value.ToString().Trim().Equals(""))
+                        {
+                            int pos = -1;
+                            int i = 0;
+                            while (i < contactos.Count && pos == -1)
+                            {
+                                string ruc = row.Cells[0].Value.ToString().Length == 10 ? row.Cells[0].Value.ToString() + @"001" : row.Cells[0].Value.ToString();
+                                if (contactos[i].id.Equals(row.Cells[0].Value))
+                                {
+                                    row.Cells[1].Value = contactos[i].denominacion;
+                                    pos = i;
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                }
             }
         }
 

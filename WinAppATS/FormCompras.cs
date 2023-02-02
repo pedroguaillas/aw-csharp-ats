@@ -820,8 +820,8 @@ namespace WinAppATS
 
         private void btnRecuperado_Click(object sender, EventArgs e)
         {
-            dgv.importRecuperado();
-            //dgv.importRecuperadoMasiva();
+            //dgv.importRecuperado();
+            dgv.importRecuperadoMasiva();
             dgv.rellenarProveedores();
             dgv.rellenarProveedoresMasivo();
             sumcolumns();

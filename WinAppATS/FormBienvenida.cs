@@ -75,8 +75,9 @@ namespace WinAppATS
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 try
                 {
-                    var response = await client.PostAsync(Const.URL + "customers/update", content);
+                    var response = await client.PostAsync(Const.URL + "customers/" + customer.ruc + "/updatefichart", content);
                     result = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show(result);
                     if (result.Contains("OK"))
                     {
                         MessageBox.Show("Se guardo satisfactoriamente");

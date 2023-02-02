@@ -572,6 +572,9 @@ namespace WinAppATS
         private void btnRecuperado_Click(object sender, EventArgs e)
         {
             dgv.importReport(pgbImport);
+            //dgv.importReportText(pgbImport);
+            //dgv.rellenarClientes();
+            //dgv.rellenarClientesMasivo();
         }
 
         private void btnIRecuperado_Click(object sender, EventArgs e)
