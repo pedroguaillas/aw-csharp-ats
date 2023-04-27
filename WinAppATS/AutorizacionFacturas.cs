@@ -129,6 +129,56 @@ namespace WinAppATS
             }
         }
 
+        /// <summary>
+        /// The llamar sri.
+        /// </summary>
+        /// <param name="claveAcceso">The claveAcceso.</param>
+        /// <returns>The <see cref="DatosTributarios"/>.</returns>
+        public string LlamarSriLote(string claveAcceso)
+        {
+            //try
+            //{
+            string result = null;
+            string url = "https://cel.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantesOffline?wsdl";
+
+            string xml = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ec=\"http://ec.gob.sri.ws.autorizacion\">";
+            xml = xml + "<soapenv:Header/>";
+            xml = xml + "<soapenv:Body>";
+            xml = xml + "<ec:autorizacionComprobanteLote>";
+            xml = xml + "<claveAccesoLote>" + claveAcceso + "</claveAccesoLote>";
+            xml = xml + "</ec:autorizacionComprobanteLote>";
+            xml = xml + "</soapenv:Body>";
+            xml = xml + "</soapenv:Envelope>";
+
+            byte[] bytes = Encoding.ASCII.GetBytes(xml);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            request.Method = "POST";
+            request.ContentLength = bytes.Length;
+            request.ContentType = "text/xml";
+
+            Stream requestStream = request.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream, Encoding.GetEncoding("ISO-8859-1"));
+                result = reader.ReadToEnd();
+            }
+
+            response.Close();
+
+            return result;
+            //}
+            //catch (Exception)
+            //{
+            //    return null;
+            //}
+        }
+
         ~AutorizacionFacturas() { }
     }
 }

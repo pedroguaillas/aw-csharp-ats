@@ -312,7 +312,8 @@ namespace WinAppATS
                 int i = 0;
                 while ((line = file.ReadLine()) != null)
                 {
-                    if (i % 2 == 0 && i > 0)
+                    //if (i % 2 == 0 && i > 0)
+                    if (i > 0)
                     {
                         string[] palabras = line.Split('\t');
                         cla_accs.Add(palabras[3]);
@@ -581,10 +582,12 @@ namespace WinAppATS
                                 if (xmlDoc.Root.Attribute("version").Value.Trim().Equals("2.0.0"))
                                 {
                                     import = importRetVersion2(xmlDoc);
+                                    //import = importRetVersion2amenudo(xmlDoc);
                                 }
                                 else
                                 {
                                     import = importRetVersion1(xmlDoc);
+                                    //import = importRetVersion1amenudo(xmlDoc);
                                 }
                             }
 
@@ -693,6 +696,68 @@ namespace WinAppATS
             return import;
         }
 
+        //Requerimiento amenudo
+
+        private bool importRetVersion2amenudo(XDocument xmlDoc)
+        {
+            bool import = false;
+            string tax = "retencion";
+
+            // Verificar q maximo tenga 2 impuestos
+            if (xmlDoc.Descendants(tax).Count() < 3)
+            {
+                string codDocSustento = "";
+                string comprobante = "";
+                int porcieniva = 0;
+                double porcienrenta = 0;
+                double valRetIva = 0;
+                double valRetRenta = 0;
+                double iva = 0;
+                double basei = 0;
+
+                //NOTA: En la version 2 el numDocSustento esta fuera de las etiquetas retenciones
+                codDocSustento = xmlDoc.Descendants("codDocSustento").Any() ? xmlDoc.Descendants("codDocSustento").FirstOrDefault().Value : "";
+                comprobante = xmlDoc.Descendants("numDocSustento").Any() ? xmlDoc.Descendants("numDocSustento").FirstOrDefault().Value : "";
+
+                foreach (var impuesto in xmlDoc.Descendants(tax))
+                {
+                    switch (Int32.Parse(impuesto.Descendants("codigo").FirstOrDefault().Value))
+                    {
+                        case 1:
+                            porcienrenta = double.Parse(impuesto.Descendants("porcentajeRetener").FirstOrDefault().Value.Replace('.', dec));
+                            valRetRenta += double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
+                            basei += double.Parse(impuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec));
+                            break;
+                        case 2:
+                            porcieniva = (int)Math.Round(double.Parse(impuesto.Descendants("porcentajeRetener").FirstOrDefault().Value.Replace('.', dec)));
+                            valRetIva += double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
+                            iva += double.Parse(impuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec));
+                            break;
+                    }
+                }
+                dgvV.Rows.Add(
+                    xmlDoc.Descendants("ruc").FirstOrDefault().Value,
+                    xmlDoc.Descendants("razonSocial").FirstOrDefault().Value,     //Razon social
+                    "04",
+                    //xmlDoc.Descendants("tipoIdentificacionSujetoRetenido").FirstOrDefault().Value,
+                    xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,     //Fecha
+                    "F",    //Tipo comprobante venta
+                    xmlDoc.Descendants("claveAcceso").FirstOrDefault().Value,
+                    0, basei, 0,
+                    0,      //Monto ICE
+                    iva, 0,   //IVA y Total
+                    porcienrenta,
+                    porcieniva,
+                    valRetRenta,
+                    valRetIva,
+                    xmlDoc.Descendants("secuencial").FirstOrDefault().Value
+                );
+                import = true;
+            }
+
+            return import;
+        }
+
         private bool importRetVersion1(XDocument xmlDoc)
         {
             bool import = false;
@@ -770,6 +835,79 @@ namespace WinAppATS
                     import = true;
                 }
             }
+
+            return import;
+        }
+
+        //Requerimiento amenudo
+
+        private bool importRetVersion1amenudo(XDocument xmlDoc)
+        {
+            bool import = false;
+            string tax = "impuesto";
+
+            // Verificar q maximo tenga 2 impuestos
+            //if (xmlDoc.Descendants(tax).Count() < 3)
+
+            string tcv = "";
+            string comprobante = "";
+            double base0 = 0;
+            double iva = 0;
+            int porcieniva = 0;
+            double porcienrenta = 0;
+            double valRetIva = 0;
+            double valRetRenta = 0;
+
+            foreach (var impuesto in xmlDoc.Descendants(tax))
+            {
+                //El codDocSustento esta dentro de la etiqueta impuesto y si no existe le ponemos por defecto NULL
+                tcv = impuesto.Descendants("codDocSustento").Any() ? impuesto.Descendants("codDocSustento").FirstOrDefault().Value : null;
+                if (tcv == "01")
+                {
+                    comprobante = impuesto.Descendants("numDocSustento").FirstOrDefault().Value;
+                }
+
+                int tipo = Int32.Parse(impuesto.Descendants("codigo").FirstOrDefault().Value);
+                base0 = double.Parse(impuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec));
+
+                double porcien = double.Parse(impuesto.Descendants("porcentajeRetener").FirstOrDefault().Value.Replace('.', dec));
+                double valRet = double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
+                dgvV.Rows.Add(
+                    xmlDoc.Descendants("ruc").FirstOrDefault().Value,
+                    xmlDoc.Descendants("razonSocial").FirstOrDefault().Value,   //Razon social
+                    "04",
+                    //xmlDoc.Descendants("tipoIdentificacionSujetoRetenido").FirstOrDefault().Value,
+                    xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,     //Fecha
+                    "F",    //Tipo comprobante venta
+                    xmlDoc.Descendants("claveAcceso").FirstOrDefault().Value,   //Razon social
+                    0,
+                    tipo == 1 ? base0 : 0,
+                    0,  // Base Imponible
+                    0,      //Monto ICE
+                    tipo == 2 ? base0 : 0, // IVA
+                    0,   // Total
+                     tipo == 1 ? porcien : 0,
+                    tipo == 2 ? porcien : 0,
+                    tipo == 1 ? valRet : 0,
+                    tipo == 2 ? valRet : 0,
+                    xmlDoc.Descendants("secuencial").FirstOrDefault().Value
+                );
+
+                //switch (Int32.Parse(impuesto.Descendants("codigo").FirstOrDefault().Value))
+                //{
+                //    case 1:
+                //        porcienrenta = double.Parse(impuesto.Descendants("porcentajeRetener").FirstOrDefault().Value.Replace('.', dec));
+                //        valRetRenta += double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
+                //        base0 += double.Parse(impuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec));
+                //        break;
+                //    case 2:
+                //        porcieniva = (int)Math.Round(double.Parse(impuesto.Descendants("porcentajeRetener").FirstOrDefault().Value.Replace('.', dec)));
+                //        valRetIva += double.Parse(impuesto.Descendants("valorRetenido").FirstOrDefault().Value.Replace('.', dec));
+                //        iva+= double.Parse(impuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec));
+                //        break;
+                //}
+            }
+            import = true;
 
             return import;
         }

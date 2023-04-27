@@ -407,7 +407,8 @@ namespace WinAppATS
 
                 while ((line = file.ReadLine()) != null)
                 {
-                    if (i % 2 == 0 && i > 0)
+                    //if (i % 2 == 0 && i > 0)
+                    if (i > 0)
                     {
                         string[] palabras = line.Split('\t');
                         if (palabras[9].Length == 49 || palabras[9].Length == 13)
@@ -456,7 +457,8 @@ namespace WinAppATS
                     int i = 0;
                     while ((line = file.ReadLine()) != null)
                     {
-                        if (i % 2 == 0 && i > 0)
+                        //if (i % 2 == 0 && i > 0)
+                        if (i > 0)
                         {
                             string[] palabras = line.Split('\t');
                             if (palabras[9].Length == 49 || palabras[9].Length == 13)
@@ -1398,11 +1400,11 @@ namespace WinAppATS
                     request.AddParameter("tipoIdentificacion", "R");
                     var response = client.Execute(request);
 
-                    if (response.IsSuccessful)
+                    if (response.IsSuccessful && !response.Content.Equals(""))
                     {
                         var result = response.Content;
                         var resultado = JsonConvert.DeserializeObject<ResultSriRuc>(result);
-                        contactos.Add(new Contacto(idContacto, resultado.nombreCompleto.Trim()));
+                        contactos.Add(new Contacto(idContacto, remplazar(resultado.nombreCompleto.Trim())));
                     }
                 }
 
@@ -1427,6 +1429,21 @@ namespace WinAppATS
                     }
                 }
             }
+        }
+
+        private string remplazar(string razonsocial)
+        {
+            razonsocial = razonsocial.Replace('Á', 'A');
+            razonsocial = razonsocial.Replace('É', 'E');
+            razonsocial = razonsocial.Replace('Í', 'I');
+            razonsocial = razonsocial.Replace('Ó', 'O');
+            razonsocial = razonsocial.Replace('Ú', 'U');
+            razonsocial = razonsocial.Replace('Ñ', 'N');
+            razonsocial = razonsocial.Replace("&", string.Empty);
+            razonsocial = razonsocial.Replace(".", string.Empty);
+            razonsocial = razonsocial.Replace(",", string.Empty);
+
+            return razonsocial;
         }
 
         ~DgvCompras() { }

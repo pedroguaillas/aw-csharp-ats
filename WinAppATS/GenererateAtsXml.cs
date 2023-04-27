@@ -97,12 +97,12 @@ namespace WinAppATS
                         createElement(detalleVentas, doc, "tipoEmision", ("F"));
                         createElement(detalleVentas, doc, "numeroComprobantes", venta.g.Count().ToString());
                         createElement(detalleVentas, doc, "baseNoGraIva", "0.00");
-                        createElement(detalleVentas, doc, "baseImponible", dec(venta.g.Sum(s => float.Parse((string)s.Element("b0"))).ToString()));
-                        createElement(detalleVentas, doc, "baseImpGrav", dec(venta.g.Sum(s => float.Parse((string)s.Element("b12"))).ToString()));
-                        createElement(detalleVentas, doc, "montoIva", dec(venta.g.Sum(s => float.Parse((string)s.Element("miv"))).ToString()));
-                        createElement(detalleVentas, doc, "montoIce", dec(venta.g.Sum(s => float.Parse((string)s.Element("mi"))).ToString()));
-                        createElement(detalleVentas, doc, "valorRetIva", dec(venta.g.Sum(s => float.Parse((string)s.Element("vri"))).ToString()));
-                        createElement(detalleVentas, doc, "valorRetRenta", dec(venta.g.Sum(s => float.Parse((string)s.Element("vrr"))).ToString()));
+                        createElement(detalleVentas, doc, "baseImponible", dec(venta.g.Sum(s => decimal.Parse((string)s.Element("b0"))).ToString()));
+                        createElement(detalleVentas, doc, "baseImpGrav", dec(venta.g.Sum(s => decimal.Parse((string)s.Element("b12"))).ToString()));
+                        createElement(detalleVentas, doc, "montoIva", dec(venta.g.Sum(s => decimal.Parse((string)s.Element("miv"))).ToString()));
+                        createElement(detalleVentas, doc, "montoIce", dec(venta.g.Sum(s => decimal.Parse((string)s.Element("mi"))).ToString()));
+                        createElement(detalleVentas, doc, "valorRetIva", dec(venta.g.Sum(s => decimal.Parse((string)s.Element("vri"))).ToString()));
+                        createElement(detalleVentas, doc, "valorRetRenta", dec(venta.g.Sum(s => decimal.Parse((string)s.Element("vrr"))).ToString()));
 
                         if (venta.Key.TCV != "N/C")
                         {
@@ -187,12 +187,12 @@ namespace WinAppATS
             {
                 XDocument xmlDoc = XDocument.Load(Const.filexml(@"v" + info));
 
-                float sum = 0;
+                decimal sum = 0;
 
                 foreach (var venta in xmlDoc.Descendants("venta"))
                 {
-                    float b0 = float.Parse(_(venta, ("b0")));
-                    float b12 = float.Parse(_(venta, ("b12")));
+                    decimal b0 = decimal.Parse(_(venta, ("b0")));
+                    decimal b12 = decimal.Parse(_(venta, ("b12")));
 
                     sum += (b0 + b12) * (_(venta, "TCV") == "N/C" ? -1 : 1);
                 }
@@ -241,18 +241,18 @@ namespace WinAppATS
 
                     // Las agrupaciones de valores sumar, compras que tienen retenciones desde dos retenciones en Renta
 
-                    createElement(detalleCompras, doc, "baseNoGraIva", dec(comp.g.Sum(s => float.Parse((string)s.Element("bni"))).ToString()));
-                    createElement(detalleCompras, doc, "baseImponible", dec(comp.g.Sum(s => float.Parse((string)s.Element("b0"))).ToString()));
-                    createElement(detalleCompras, doc, "baseImpGrav", dec(comp.g.Sum(s => float.Parse((string)s.Element("b12"))).ToString()));
-                    createElement(detalleCompras, doc, "baseImpExe", dec(comp.g.Sum(s => float.Parse((string)s.Element("be"))).ToString()));
-                    createElement(detalleCompras, doc, "montoIce", dec(comp.g.Sum(s => float.Parse((string)s.Element("mi"))).ToString()));
-                    createElement(detalleCompras, doc, "montoIva", dec(comp.g.Sum(s => float.Parse((string)s.Element("miv"))).ToString()));
-                    createElement(detalleCompras, doc, "valRetBien10", dec(comp.g.Sum(s => float.Parse((string)s.Element("r10"))).ToString()));
-                    createElement(detalleCompras, doc, "valRetServ20", dec(comp.g.Sum(s => float.Parse((string)s.Element("r20"))).ToString()));
-                    createElement(detalleCompras, doc, "valorRetBienes", dec(comp.g.Sum(s => float.Parse((string)s.Element("r30"))).ToString()));
-                    createElement(detalleCompras, doc, "valRetServ50", dec(comp.g.Sum(s => float.Parse((string)s.Element("r50"))).ToString()));
-                    createElement(detalleCompras, doc, "valorRetServicios", dec(comp.g.Sum(s => float.Parse((string)s.Element("r70"))).ToString()));
-                    createElement(detalleCompras, doc, "valRetServ100", dec(comp.g.Sum(s => float.Parse((string)s.Element("r100"))).ToString()));
+                    createElement(detalleCompras, doc, "baseNoGraIva", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("bni"))).ToString()));
+                    createElement(detalleCompras, doc, "baseImponible", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("b0"))).ToString()));
+                    createElement(detalleCompras, doc, "baseImpGrav", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("b12"))).ToString()));
+                    createElement(detalleCompras, doc, "baseImpExe", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("be"))).ToString()));
+                    createElement(detalleCompras, doc, "montoIce", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("mi"))).ToString()));
+                    createElement(detalleCompras, doc, "montoIva", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("miv"))).ToString()));
+                    createElement(detalleCompras, doc, "valRetBien10", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("r10"))).ToString()));
+                    createElement(detalleCompras, doc, "valRetServ20", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("r20"))).ToString()));
+                    createElement(detalleCompras, doc, "valorRetBienes", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("r30"))).ToString()));
+                    createElement(detalleCompras, doc, "valRetServ50", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("r50"))).ToString()));
+                    createElement(detalleCompras, doc, "valorRetServicios", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("r70"))).ToString()));
+                    createElement(detalleCompras, doc, "valRetServ100", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("r100"))).ToString()));
 
                     createElement(detalleCompras, doc, "valorRetencionNc", "0");
                     createElement(detalleCompras, doc, "totbasesImpReemb", "0");
@@ -265,7 +265,7 @@ namespace WinAppATS
 
                     foreach (var meth in comp.g)
                     {
-                        createElement(formasDePago, doc, "formaPago", (float.Parse((string)meth.Element("bni")) + float.Parse((string)meth.Element("b0")) + float.Parse((string)meth.Element("b12")) > 999.99) ? "20" : "01");
+                        createElement(formasDePago, doc, "formaPago", (double.Parse((string)meth.Element("bni")) + double.Parse((string)meth.Element("b0")) + double.Parse((string)meth.Element("b12")) > 999.99) ? "20" : "01");
                     }
 
                     if (_(compra, ("cda")) != null && _(compra, ("cda")) != "")
@@ -280,7 +280,7 @@ namespace WinAppATS
                             air.AppendChild(detalleAir);
 
                             createElement(detalleAir, doc, "codRetAir", _(meth, ("cda")));
-                            createElement(detalleAir, doc, "baseImpAir", dec((float.Parse((string)meth.Element("b0")) + float.Parse((string)meth.Element("b12")) - float.Parse((string)meth.Element("mi"))).ToString()));
+                            createElement(detalleAir, doc, "baseImpAir", dec((decimal.Parse((string)meth.Element("b0")) + decimal.Parse((string)meth.Element("b12")) - decimal.Parse((string)meth.Element("mi"))).ToString()));
                             createElement(detalleAir, doc, "porcentajeAir", dec(_(meth, ("por"))));
                             createElement(detalleAir, doc, "valRetAir", dec(_(meth, ("vra"))));
                         }
@@ -363,13 +363,13 @@ namespace WinAppATS
             return "";
         }
 
-        private float _d(XElement element, string name)
+        private decimal _d(XElement element, string name)
         {
-            float n;
+            decimal n;
 
-            if (element.Element(name) != null && float.TryParse(element.Element(name).Value, out n))
+            if (element.Element(name) != null && decimal.TryParse(element.Element(name).Value, out n))
             {
-                return float.Parse(element.Element(name).Value);
+                return decimal.Parse(element.Element(name).Value);
             }
 
             return 0;

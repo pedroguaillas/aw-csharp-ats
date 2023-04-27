@@ -1,6 +1,4 @@
-﻿
-
-namespace WinAppATS
+﻿namespace WinAppATS
 {
     class Const
     {
