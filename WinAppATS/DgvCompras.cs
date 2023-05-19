@@ -176,6 +176,7 @@ namespace WinAppATS
             double base12 = 0;
             double ice = 0;
             double descuentoAdicional = 0;
+            double iva = 0;
 
             foreach (var totalImpuesto in xmlDoc.Descendants("totalImpuesto"))
             {
@@ -184,6 +185,7 @@ namespace WinAppATS
                     case 0: base0 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                     case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                     case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                    case 8: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                     case 6: imponible += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                     default:
                         if (Int32.Parse(totalImpuesto.Descendants("codigo").FirstOrDefault().Value) == 3)
@@ -193,13 +195,13 @@ namespace WinAppATS
                         break;
                 }
 
+                iva += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
+
                 if (totalImpuesto.Descendants("descuentoAdicional").Any())
                 {
                     descuentoAdicional += double.Parse(totalImpuesto.Descendants("descuentoAdicional").FirstOrDefault().Value.Replace('.', dec));
                 }
             }
-
-            double iva = Math.Round(base12 * .12, 2);
 
             string codCombustible = "";
             //Si quiere detectar las facturas de gasolina o diesel

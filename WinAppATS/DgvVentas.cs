@@ -138,6 +138,7 @@ namespace WinAppATS
                             {
                                 double base0 = 0;
                                 double base12 = 0;
+                                double iva = 0;
 
                                 foreach (var totalImpuesto in xmlDoc.Descendants("totalImpuesto"))
                                 {
@@ -146,7 +147,10 @@ namespace WinAppATS
                                         case 0: base0 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                         case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                         case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                                        case 8: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                     }
+
+                                    iva += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
                                 }
 
                                 string tpId = xmlDoc.Descendants("tipoIdentificacionComprador").FirstOrDefault().Value;
@@ -160,8 +164,8 @@ namespace WinAppATS
                                     xmlDoc.Descendants("estab").FirstOrDefault().Value + "-" + xmlDoc.Descendants("ptoEmi").FirstOrDefault().Value + "-" + xmlDoc.Descendants("secuencial").FirstOrDefault().Value,
                                     base0 + base12, base0, base12,
                                     0, //Monto ICE
-                                    Math.Round(base12 * Const.IVA, 2),//IVA
-                                    base12 + base0 + Math.Round(base12 * Const.IVA, 2),//Total
+                                    iva, //IVA
+                                    base12 + base0 + iva,//Total
                                     0,
                                     0,
                                     0,

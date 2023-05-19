@@ -34,21 +34,15 @@
             this.tbContabilidad = new System.Windows.Forms.TextBox();
             this.tbRepresentanteLegal = new System.Windows.Forms.TextBox();
             this.tbDiaDeclaracion = new System.Windows.Forms.TextBox();
-            this.tbDireccion = new System.Windows.Forms.TextBox();
             this.tbEstablecimiento = new System.Windows.Forms.TextBox();
             this.tbRuc = new System.Windows.Forms.TextBox();
             this.tbMes = new System.Windows.Forms.TextBox();
             this.tbAnio = new System.Windows.Forms.TextBox();
             this.tbRazonSocial = new System.Windows.Forms.TextBox();
-            this.tbCorreo = new System.Windows.Forms.TextBox();
-            this.tbTelefono = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -68,6 +62,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnExportDeclaracionJson = new System.Windows.Forms.Button();
+            this.cbDeclaracionSemestral = new System.Windows.Forms.CheckBox();
             this.Cliente.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -82,7 +78,7 @@
             this.btnExportar.ForeColor = System.Drawing.Color.White;
             this.btnExportar.Image = ((System.Drawing.Image)(resources.GetObject("btnExportar.Image")));
             this.btnExportar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportar.Location = new System.Drawing.Point(718, 815);
+            this.btnExportar.Location = new System.Drawing.Point(494, 725);
             this.btnExportar.Margin = new System.Windows.Forms.Padding(4);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(165, 43);
@@ -94,24 +90,19 @@
             // Cliente
             // 
             this.Cliente.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Cliente.Controls.Add(this.cbDeclaracionSemestral);
             this.Cliente.Controls.Add(this.tbContabilidad);
             this.Cliente.Controls.Add(this.tbRepresentanteLegal);
             this.Cliente.Controls.Add(this.tbDiaDeclaracion);
-            this.Cliente.Controls.Add(this.tbDireccion);
             this.Cliente.Controls.Add(this.tbEstablecimiento);
             this.Cliente.Controls.Add(this.tbRuc);
             this.Cliente.Controls.Add(this.tbMes);
             this.Cliente.Controls.Add(this.tbAnio);
             this.Cliente.Controls.Add(this.tbRazonSocial);
-            this.Cliente.Controls.Add(this.tbCorreo);
-            this.Cliente.Controls.Add(this.tbTelefono);
             this.Cliente.Controls.Add(this.label17);
             this.Cliente.Controls.Add(this.label12);
             this.Cliente.Controls.Add(this.label10);
-            this.Cliente.Controls.Add(this.label9);
             this.Cliente.Controls.Add(this.label6);
-            this.Cliente.Controls.Add(this.label8);
-            this.Cliente.Controls.Add(this.label7);
             this.Cliente.Controls.Add(this.label5);
             this.Cliente.Controls.Add(this.label4);
             this.Cliente.Controls.Add(this.label3);
@@ -122,14 +113,14 @@
             this.Cliente.Margin = new System.Windows.Forms.Padding(4);
             this.Cliente.Name = "Cliente";
             this.Cliente.Padding = new System.Windows.Forms.Padding(4);
-            this.Cliente.Size = new System.Drawing.Size(1229, 370);
+            this.Cliente.Size = new System.Drawing.Size(1229, 319);
             this.Cliente.TabIndex = 2;
             this.Cliente.TabStop = false;
             this.Cliente.Text = "Informante";
             // 
             // tbContabilidad
             // 
-            this.tbContabilidad.Location = new System.Drawing.Point(857, 304);
+            this.tbContabilidad.Location = new System.Drawing.Point(857, 151);
             this.tbContabilidad.Margin = new System.Windows.Forms.Padding(4);
             this.tbContabilidad.MaxLength = 2;
             this.tbContabilidad.Name = "tbContabilidad";
@@ -139,7 +130,7 @@
             // 
             // tbRepresentanteLegal
             // 
-            this.tbRepresentanteLegal.Location = new System.Drawing.Point(857, 254);
+            this.tbRepresentanteLegal.Location = new System.Drawing.Point(857, 101);
             this.tbRepresentanteLegal.Margin = new System.Windows.Forms.Padding(4);
             this.tbRepresentanteLegal.MaxLength = 300;
             this.tbRepresentanteLegal.Name = "tbRepresentanteLegal";
@@ -149,23 +140,13 @@
             // 
             // tbDiaDeclaracion
             // 
-            this.tbDiaDeclaracion.Location = new System.Drawing.Point(857, 203);
+            this.tbDiaDeclaracion.Location = new System.Drawing.Point(857, 50);
             this.tbDiaDeclaracion.Margin = new System.Windows.Forms.Padding(4);
             this.tbDiaDeclaracion.MaxLength = 2;
             this.tbDiaDeclaracion.Name = "tbDiaDeclaracion";
             this.tbDiaDeclaracion.Size = new System.Drawing.Size(332, 30);
             this.tbDiaDeclaracion.TabIndex = 7;
             this.tbDiaDeclaracion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TbDiaDeclaracion_KeyPress);
-            // 
-            // tbDireccion
-            // 
-            this.tbDireccion.Location = new System.Drawing.Point(857, 152);
-            this.tbDireccion.Margin = new System.Windows.Forms.Padding(4);
-            this.tbDireccion.MaxLength = 300;
-            this.tbDireccion.Name = "tbDireccion";
-            this.tbDireccion.Size = new System.Drawing.Size(332, 30);
-            this.tbDireccion.TabIndex = 7;
-            this.tbDireccion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TbDireccion_KeyPress);
             // 
             // tbEstablecimiento
             // 
@@ -219,30 +200,10 @@
             this.tbRazonSocial.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbRazonSocial_KeyDown);
             this.tbRazonSocial.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TbRazonSocial_KeyPress);
             // 
-            // tbCorreo
-            // 
-            this.tbCorreo.Location = new System.Drawing.Point(857, 101);
-            this.tbCorreo.Margin = new System.Windows.Forms.Padding(4);
-            this.tbCorreo.MaxLength = 50;
-            this.tbCorreo.Name = "tbCorreo";
-            this.tbCorreo.Size = new System.Drawing.Size(332, 30);
-            this.tbCorreo.TabIndex = 7;
-            this.tbCorreo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TbCorreo_KeyPress);
-            // 
-            // tbTelefono
-            // 
-            this.tbTelefono.Location = new System.Drawing.Point(857, 50);
-            this.tbTelefono.Margin = new System.Windows.Forms.Padding(4);
-            this.tbTelefono.MaxLength = 10;
-            this.tbTelefono.Name = "tbTelefono";
-            this.tbTelefono.Size = new System.Drawing.Size(332, 30);
-            this.tbTelefono.TabIndex = 7;
-            this.tbTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TbTelefono_KeyPress);
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(619, 307);
+            this.label17.Location = new System.Drawing.Point(619, 154);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(199, 25);
@@ -252,7 +213,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(619, 257);
+            this.label12.Location = new System.Drawing.Point(619, 104);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(182, 25);
@@ -262,22 +223,12 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(619, 206);
+            this.label10.Location = new System.Drawing.Point(619, 53);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(145, 25);
             this.label10.TabIndex = 3;
             this.label10.Text = "Dia declaración";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(619, 155);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(91, 25);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Dirección";
             // 
             // label6
             // 
@@ -288,26 +239,6 @@
             this.label6.Size = new System.Drawing.Size(147, 25);
             this.label6.TabIndex = 0;
             this.label6.Text = "Establecimiento";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(619, 101);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(68, 25);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Correo";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(619, 50);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 25);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Teléfono";
             // 
             // label5
             // 
@@ -366,7 +297,7 @@
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(87, 600);
+            this.groupBox1.Location = new System.Drawing.Point(87, 539);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -503,7 +434,7 @@
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardar.Location = new System.Drawing.Point(985, 815);
+            this.btnGuardar.Location = new System.Drawing.Point(941, 725);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(4);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(165, 43);
@@ -523,12 +454,41 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
+            // btnExportDeclaracionJson
+            // 
+            this.btnExportDeclaracionJson.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnExportDeclaracionJson.FlatAppearance.BorderSize = 0;
+            this.btnExportDeclaracionJson.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportDeclaracionJson.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportDeclaracionJson.ForeColor = System.Drawing.Color.White;
+            this.btnExportDeclaracionJson.Image = ((System.Drawing.Image)(resources.GetObject("btnExportDeclaracionJson.Image")));
+            this.btnExportDeclaracionJson.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExportDeclaracionJson.Location = new System.Drawing.Point(697, 725);
+            this.btnExportDeclaracionJson.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExportDeclaracionJson.Name = "btnExportDeclaracionJson";
+            this.btnExportDeclaracionJson.Size = new System.Drawing.Size(208, 43);
+            this.btnExportDeclaracionJson.TabIndex = 6;
+            this.btnExportDeclaracionJson.Text = "     Declaración JSON";
+            this.btnExportDeclaracionJson.UseVisualStyleBackColor = false;
+            this.btnExportDeclaracionJson.Click += new System.EventHandler(this.btnExportDeclaracionJson_Click);
+            // 
+            // cbDeclaracionSemestral
+            // 
+            this.cbDeclaracionSemestral.AutoSize = true;
+            this.cbDeclaracionSemestral.Location = new System.Drawing.Point(626, 255);
+            this.cbDeclaracionSemestral.Name = "cbDeclaracionSemestral";
+            this.cbDeclaracionSemestral.Size = new System.Drawing.Size(223, 29);
+            this.cbDeclaracionSemestral.TabIndex = 9;
+            this.cbDeclaracionSemestral.Text = "Declaración semestral";
+            this.cbDeclaracionSemestral.UseVisualStyleBackColor = true;
+            // 
             // FormBienvenida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(1440, 921);
+            this.Controls.Add(this.btnExportDeclaracionJson);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.groupBox1);
@@ -558,14 +518,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbRepresentanteLegal;
         private System.Windows.Forms.TextBox tbDiaDeclaracion;
-        private System.Windows.Forms.TextBox tbDireccion;
-        private System.Windows.Forms.TextBox tbCorreo;
-        private System.Windows.Forms.TextBox tbTelefono;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox tbMrl;
         private System.Windows.Forms.TextBox tbMt;
@@ -588,5 +542,7 @@
         private System.Windows.Forms.TextBox tbMes;
         private System.Windows.Forms.TextBox tbAnio;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnExportDeclaracionJson;
+        private System.Windows.Forms.CheckBox cbDeclaracionSemestral;
     }
 }

@@ -16,10 +16,8 @@ namespace WinAppATS
 
         private void BtnExportar_Click(object sender, EventArgs e)
         {
-            GenererateAtsXml xml = new GenererateAtsXml(this.Name.Substring(this.Name.Length - 19), tbEstablecimiento.Text);
+            GenererateAtsXml xml = new GenererateAtsXml(this.Name.Substring(this.Name.Length - 19), tbEstablecimiento.Text, cbDeclaracionSemestral.Checked);
             xml.generate();
-            //Archivo archivo = new Archivo();
-            //archivo.generarATS(this.Name.Substring(this.Name.Length - 19), tbEstablecimiento.Text);
         }
 
         private void FormBienvenida_Load(object sender, EventArgs e)
@@ -33,9 +31,6 @@ namespace WinAppATS
                 tbAnio.Text = this.Name.Substring(this.Name.Length - 6, 4);
                 tbMes.Text = this.Name.Substring(this.Name.Length - 2);
                 tbEstablecimiento.Text = "001";
-                tbTelefono.Text = dataRow["phone"].ToString().Equals("-") ? "" : dataRow["phone"].ToString();
-                tbCorreo.Text = dataRow["mail"].ToString().Equals("-") ? "" : dataRow["mail"].ToString();
-                tbDireccion.Text = dataRow["direccion"].ToString().Equals("-") ? "" : dataRow["direccion"].ToString();
                 tbDiaDeclaracion.Text = dataRow["diadeclaracion"].ToString().Equals("-") ? "" : dataRow["diadeclaracion"].ToString();
                 tbRepresentanteLegal.Text = dataRow["representantelegal"].ToString().Equals("-") ? "" : dataRow["representantelegal"].ToString();
                 tbSri.Text = dataRow["sri"].ToString().Equals("-") ? "" : dataRow["sri"].ToString();
@@ -55,9 +50,6 @@ namespace WinAppATS
             {
                 ruc = tbRuc.Text,
                 razonsocial = tbRazonSocial.Text,
-                phone = tbTelefono.Text.Equals("") ? null : tbTelefono.Text,
-                mail = tbCorreo.Text.Equals("") ? null : tbCorreo.Text,
-                direccion = tbDireccion.Text.Equals("") ? null : tbDireccion.Text,
                 diadeclaracion = tbDiaDeclaracion.Text.Equals("") ? null : tbDiaDeclaracion.Text,
                 sri = tbSri.Text.Equals("") ? null : tbSri.Text,
                 representantelegal = tbRepresentanteLegal.Text.Equals("") ? null : tbRepresentanteLegal.Text,
@@ -111,30 +103,6 @@ namespace WinAppATS
         private void TbEstablecimiento_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ((e.KeyChar >= '0' && e.KeyChar <= '9') || e.KeyChar == (char)Keys.Back)
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void TbTelefono_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar >= '0' && e.KeyChar <= '9') || e.KeyChar == (char)Keys.Back)
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void TbCorreo_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar >= '0' && e.KeyChar <= '9') || (e.KeyChar >= 'a' && e.KeyChar <= 'z') || (e.KeyChar >= 'A' && e.KeyChar <= 'Z') || e.KeyChar == '@' || e.KeyChar == '.' || e.KeyChar == '_' || e.KeyChar == '-' || e.KeyChar == (char)Keys.Back)
             {
                 e.Handled = false;
             }
@@ -241,6 +209,12 @@ namespace WinAppATS
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void btnExportDeclaracionJson_Click(object sender, EventArgs e)
+        {
+            GenerateDeclaracionIVA json = new GenerateDeclaracionIVA(this.Name.Substring(this.Name.Length - 19));
+            json.generate();
         }
     }
 }

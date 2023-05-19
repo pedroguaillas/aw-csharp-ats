@@ -11,11 +11,13 @@ namespace WinAppATS
     {
         String info;
         String establecimiento;
+        bool semestral;
 
-        public GenererateAtsXml(string info, string establecimiento)
+        public GenererateAtsXml(string info, string establecimiento, bool semestral)
         {
             this.info = info;
             this.establecimiento = establecimiento;
+            this.semestral = semestral;
         }
 
         public void generate()
@@ -35,6 +37,12 @@ namespace WinAppATS
             createElement(iva, doc, "razonSocial", cliente.getCliente(info.Substring(0, 13)));
             createElement(iva, doc, "Anio", info.Substring(13, 4));
             createElement(iva, doc, "Mes", info.Substring(17));
+
+            if (semestral)
+            {
+                createElement(iva, doc, "regimenMicroempresa", "SI");
+            }
+
             createElement(iva, doc, "numEstabRuc", establecimiento);
             createElement(iva, doc, "totalVentas", totalVentas());
             createElement(iva, doc, "codigoOperativo", "IVA");
@@ -213,7 +221,7 @@ namespace WinAppATS
 
                 // Compras agrupadas por tipo de comprobante y cliente
                 var groups = from compra in xmlDoc.Root.Elements("compra")
-                             group compra by new { sec = (string)compra.Element("sec"), TCV = (string)compra.Element("TCV"), RUC = (string)compra.Element("RUC") } into g
+                             group compra by new { sec = (string)compra.Element("sec"), pe = (string)compra.Element("pe"), Est = (string)compra.Element("Est"), TCV = (string)compra.Element("TCV"), RUC = (string)compra.Element("RUC") } into g
                              select new { g.Key, g };
 
                 foreach (var comp in groups)
@@ -233,8 +241,10 @@ namespace WinAppATS
                     createElement(detalleCompras, doc, "denoProv", _(compra, ("rs")));
                     createElement(detalleCompras, doc, "parteRel", "NO");
                     createElement(detalleCompras, doc, "fechaRegistro", _(compra, ("fec")));
-                    createElement(detalleCompras, doc, "establecimiento", _(compra, ("Est")));
-                    createElement(detalleCompras, doc, "puntoEmision", _(compra, ("pe")));
+                    createElement(detalleCompras, doc, "establecimiento", comp.Key.Est);
+                    createElement(detalleCompras, doc, "puntoEmision", comp.Key.pe);
+                    //createElement(detalleCompras, doc, "establecimiento", _(compra, ("Est")));
+                    //createElement(detalleCompras, doc, "puntoEmision", _(compra, ("pe")));
                     createElement(detalleCompras, doc, "secuencial", _(compra, ("sec")));
                     createElement(detalleCompras, doc, "fechaEmision", _(compra, ("fec")));
                     createElement(detalleCompras, doc, "autorizacion", _(compra, ("aut")));
