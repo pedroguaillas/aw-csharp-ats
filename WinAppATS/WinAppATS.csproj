@@ -218,6 +218,7 @@
     <Compile Include="FormRVentasATS.Designer.cs">
       <DependentUpon>FormRVentasATS.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerateDeclaracionRetenciones.cs" />
     <Compile Include="GenerateDeclaracionIVA.cs" />
     <Compile Include="GenererateAtsXml.cs" />
     <Compile Include="ImportContactos.cs" />

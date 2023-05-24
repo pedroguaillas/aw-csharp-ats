@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBienvenida));
             this.btnExportar = new System.Windows.Forms.Button();
             this.Cliente = new System.Windows.Forms.GroupBox();
+            this.cbDeclaracionSemestral = new System.Windows.Forms.CheckBox();
             this.tbContabilidad = new System.Windows.Forms.TextBox();
             this.tbRepresentanteLegal = new System.Windows.Forms.TextBox();
             this.tbDiaDeclaracion = new System.Windows.Forms.TextBox();
@@ -63,7 +64,7 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnExportDeclaracionJson = new System.Windows.Forms.Button();
-            this.cbDeclaracionSemestral = new System.Windows.Forms.CheckBox();
+            this.btnDeclaracionRets = new System.Windows.Forms.Button();
             this.Cliente.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -78,7 +79,7 @@
             this.btnExportar.ForeColor = System.Drawing.Color.White;
             this.btnExportar.Image = ((System.Drawing.Image)(resources.GetObject("btnExportar.Image")));
             this.btnExportar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportar.Location = new System.Drawing.Point(494, 725);
+            this.btnExportar.Location = new System.Drawing.Point(395, 725);
             this.btnExportar.Margin = new System.Windows.Forms.Padding(4);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(165, 43);
@@ -117,6 +118,16 @@
             this.Cliente.TabIndex = 2;
             this.Cliente.TabStop = false;
             this.Cliente.Text = "Informante";
+            // 
+            // cbDeclaracionSemestral
+            // 
+            this.cbDeclaracionSemestral.AutoSize = true;
+            this.cbDeclaracionSemestral.Location = new System.Drawing.Point(626, 255);
+            this.cbDeclaracionSemestral.Name = "cbDeclaracionSemestral";
+            this.cbDeclaracionSemestral.Size = new System.Drawing.Size(223, 29);
+            this.cbDeclaracionSemestral.TabIndex = 9;
+            this.cbDeclaracionSemestral.Text = "Declaración semestral";
+            this.cbDeclaracionSemestral.UseVisualStyleBackColor = true;
             // 
             // tbContabilidad
             // 
@@ -463,24 +474,32 @@
             this.btnExportDeclaracionJson.ForeColor = System.Drawing.Color.White;
             this.btnExportDeclaracionJson.Image = ((System.Drawing.Image)(resources.GetObject("btnExportDeclaracionJson.Image")));
             this.btnExportDeclaracionJson.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportDeclaracionJson.Location = new System.Drawing.Point(697, 725);
+            this.btnExportDeclaracionJson.Location = new System.Drawing.Point(587, 725);
             this.btnExportDeclaracionJson.Margin = new System.Windows.Forms.Padding(4);
             this.btnExportDeclaracionJson.Name = "btnExportDeclaracionJson";
-            this.btnExportDeclaracionJson.Size = new System.Drawing.Size(208, 43);
+            this.btnExportDeclaracionJson.Size = new System.Drawing.Size(150, 43);
             this.btnExportDeclaracionJson.TabIndex = 6;
-            this.btnExportDeclaracionJson.Text = "     Declaración JSON";
+            this.btnExportDeclaracionJson.Text = "  IVA JSON";
             this.btnExportDeclaracionJson.UseVisualStyleBackColor = false;
             this.btnExportDeclaracionJson.Click += new System.EventHandler(this.btnExportDeclaracionJson_Click);
             // 
-            // cbDeclaracionSemestral
+            // btnDeclaracionRets
             // 
-            this.cbDeclaracionSemestral.AutoSize = true;
-            this.cbDeclaracionSemestral.Location = new System.Drawing.Point(626, 255);
-            this.cbDeclaracionSemestral.Name = "cbDeclaracionSemestral";
-            this.cbDeclaracionSemestral.Size = new System.Drawing.Size(223, 29);
-            this.cbDeclaracionSemestral.TabIndex = 9;
-            this.cbDeclaracionSemestral.Text = "Declaración semestral";
-            this.cbDeclaracionSemestral.UseVisualStyleBackColor = true;
+            this.btnDeclaracionRets.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnDeclaracionRets.FlatAppearance.BorderSize = 0;
+            this.btnDeclaracionRets.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeclaracionRets.Font = new System.Drawing.Font("Franklin Gothic Book", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeclaracionRets.ForeColor = System.Drawing.Color.White;
+            this.btnDeclaracionRets.Image = ((System.Drawing.Image)(resources.GetObject("btnDeclaracionRets.Image")));
+            this.btnDeclaracionRets.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeclaracionRets.Location = new System.Drawing.Point(764, 725);
+            this.btnDeclaracionRets.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDeclaracionRets.Name = "btnDeclaracionRets";
+            this.btnDeclaracionRets.Size = new System.Drawing.Size(150, 43);
+            this.btnDeclaracionRets.TabIndex = 7;
+            this.btnDeclaracionRets.Text = "    RETS JSON";
+            this.btnDeclaracionRets.UseVisualStyleBackColor = false;
+            this.btnDeclaracionRets.Click += new System.EventHandler(this.btnDeclaracionRets_Click);
             // 
             // FormBienvenida
             // 
@@ -488,6 +507,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(1440, 921);
+            this.Controls.Add(this.btnDeclaracionRets);
             this.Controls.Add(this.btnExportDeclaracionJson);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnGuardar);
@@ -544,5 +564,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnExportDeclaracionJson;
         private System.Windows.Forms.CheckBox cbDeclaracionSemestral;
+        private System.Windows.Forms.Button btnDeclaracionRets;
     }
 }

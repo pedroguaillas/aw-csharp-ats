@@ -216,5 +216,12 @@ namespace WinAppATS
             GenerateDeclaracionIVA json = new GenerateDeclaracionIVA(this.Name.Substring(this.Name.Length - 19));
             json.generate();
         }
+
+        private void btnDeclaracionRets_Click(object sender, EventArgs e)
+        {
+            GenerateDeclaracionRetenciones json = new GenerateDeclaracionRetenciones(this.Name.Substring(this.Name.Length - 19));
+            json.generate();
+
+        }
     }
 }

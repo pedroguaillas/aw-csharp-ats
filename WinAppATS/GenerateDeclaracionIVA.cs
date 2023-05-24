@@ -24,7 +24,7 @@ namespace WinAppATS
             ventas();
             compras();
 
-            string path = miCarpeta("json", "ATS_" + info.Substring(17));
+            string path = miCarpeta("json", "IVA_" + info.Substring(17));
 
             if (path != "")
             {
