@@ -69,7 +69,6 @@ namespace WinAppATS
                 {
                     var response = await client.PostAsync(Const.URL + "customers/" + customer.ruc + "/updatefichart", content);
                     result = await response.Content.ReadAsStringAsync();
-                    MessageBox.Show(result);
                     if (result.Contains("OK"))
                     {
                         MessageBox.Show("Se guardo satisfactoriamente");

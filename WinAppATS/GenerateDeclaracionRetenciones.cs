@@ -46,7 +46,7 @@ namespace WinAppATS
 
                 // Compras agrupadas por codigo de retencion
                 var groups = from compra in xmlDoc.Root.Elements("compra")
-                             where !compra.Element("cda").Equals("")
+                             where compra.Element("cda") != null && !compra.Element("cda").Equals("")
                              group compra by new { cda = (string)compra.Element("cda") } into g
                              select new { g.Key, g };
 

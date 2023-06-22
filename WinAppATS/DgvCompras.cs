@@ -383,6 +383,79 @@ namespace WinAppATS
             }
         }
 
+        //public void descargar(string ruc, ProgressBar bar)
+        //{
+        //    Importa importa = new Importa();
+        //    string path = importa.selectFile("txt");
+
+        //    if (path != null)
+        //    {
+        //        string line = "";
+        //        StreamReader countlines = new StreamReader(path);
+        //        int linesLength = 0;
+        //        List<string> claves = new List<string>();
+        //        while ((line = countlines.ReadLine()) != null)
+        //        {
+        //            string[] palabras = line.Split('\t');
+        //            //Si palabras tiene una sola palabra y la palabra tiene 52 caracteres
+        //            if (palabras.Count() == 1 && palabras[0].Length == 52)
+        //            {
+        //                //extraer solo la clave de acceso
+        //                string claveacceso = palabras[0].Substring(3);
+
+        //                // Verificar que todos los caracteres sean digitos
+        //                bool verdad = true;
+
+        //                foreach (var letra in claveacceso)
+        //                {
+        //                    if (!Char.IsDigit(letra))
+        //                    {
+        //                        verdad = false;
+        //                    }
+        //                }
+
+        //                if (verdad && !claves.Contains(claveacceso))
+        //                {
+        //                    claves.Add(claveacceso);
+        //                    linesLength++;
+        //                }
+        //            }
+        //        }
+
+        //        bar.Visible = true;
+        //        bar.Value = 0;
+
+        //        string problems = "";
+
+        //        for (int i = 0; i < claves.Count; i++)
+        //        {
+        //            AutorizacionFacturas autorizacion = new AutorizacionFacturas();
+
+        //            if (!autorizacion.Descarga(claves[i], path.Remove(path.Length - 4)))
+        //            {
+        //                if (!autorizacion.Descarga(claves[i], path.Remove(path.Length - 4)))
+        //                {
+        //                    if (!autorizacion.Descarga(claves[i], path.Remove(path.Length - 4)))
+        //                    {
+        //                        problems += "\n" + claves[i];
+        //                    }
+        //                }
+        //            }
+        //            bar.Value = (i * 100) / linesLength;
+        //        }
+
+        //        if (problems.Length > 0)
+        //        {
+        //            path = @"" + path.Remove(path.Length - 4) + "/Error.txt";
+        //            Archivo archivo = new Archivo();
+        //            archivo.saveError(problems, path);
+        //        }
+
+        //        bar.Value = 100;
+        //        bar.Visible = false;
+        //    }
+        //}
+
         public void descargar(string ruc, ProgressBar bar)
         {
             Importa importa = new Importa();
@@ -409,11 +482,10 @@ namespace WinAppATS
 
                 while ((line = file.ReadLine()) != null)
                 {
-                    //if (i % 2 == 0 && i > 0)
                     if (i > 0)
                     {
                         string[] palabras = line.Split('\t');
-                        if (palabras[9].Length == 49 || palabras[9].Length == 13)
+                        if (palabras[9].Length == 49 || palabras[10].Length == 49)
                         {
                             AutorizacionFacturas autorizacion = new AutorizacionFacturas();
                             string code = palabras[palabras[9].Length == 49 ? 9 : 10];
@@ -459,11 +531,10 @@ namespace WinAppATS
                     int i = 0;
                     while ((line = file.ReadLine()) != null)
                     {
-                        //if (i % 2 == 0 && i > 0)
                         if (i > 0)
                         {
                             string[] palabras = line.Split('\t');
-                            if (palabras[9].Length == 49 || palabras[9].Length == 13)
+                            if (palabras[9].Length == 49 || palabras[10].Length == 49)
                             {
                                 cla_accs.Add(palabras[palabras[9].Length == 49 ? 9 : 10]);
                             }

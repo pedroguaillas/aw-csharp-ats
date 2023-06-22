@@ -9,6 +9,8 @@ namespace WinAppATS
         {
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
+                String bni = dataTable.Rows[i]["bni"].ToString();
+                dataTable.Rows[i]["bni"] = bni.Replace(Const.nodec, Const.dec);
                 String b0 = dataTable.Rows[i]["b0"].ToString();
                 dataTable.Rows[i]["b0"] = b0.Replace(Const.nodec, Const.dec);
                 String b12 = dataTable.Rows[i]["b12"].ToString();

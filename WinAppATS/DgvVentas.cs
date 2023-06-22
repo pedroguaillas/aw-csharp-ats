@@ -467,7 +467,7 @@ namespace WinAppATS
                     while ((line = filer.ReadLine()) != null)
                     {
                         string[] palabras = line.Split('\t');
-                        if (i % 2 == 0 && i > 0)
+                        if (i > 0)
                         {
                             dgvV.Rows.Add(
                                 palabras[8],
@@ -479,7 +479,8 @@ namespace WinAppATS
                                 palabras[1],
                                 0, 0, 0,
                                 0,      //Monto ICE
-                                0, 0,   //IVA y Total
+                                0,  //IVA 
+                                palabras[9],   //Total
                                 0,
                                 0,
                                 0,

@@ -16,7 +16,7 @@
 
         //Ruta servidor
         public static string URL = @"http://ats.auditwhole.com/";
-        //public static string URL = @"http://localhost:8000/";
+        //public static string URL = @"https://qr.auditwhole.com/";
 
         public static double IVA = .12;
 
