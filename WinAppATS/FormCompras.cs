@@ -973,7 +973,15 @@ namespace WinAppATS
 
         private void dgvCompras_SortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
-            if ((e.Column.Index > 10 && e.Column.Index < 24) || e.Column.Index == 31)
+            if (e.Column.Index == 6)
+            {
+                DateTime value1 = DateTime.ParseExact(e.CellValue1.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime value2 = DateTime.ParseExact(e.CellValue2.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                e.SortResult = DateTime.Compare(value1, value2);
+                e.Handled = true;
+            }
+            else if ((e.Column.Index > 10 && e.Column.Index < 24) || e.Column.Index == 31)
             {
                 float value1 = e.CellValue1 != null ? float.Parse(e.CellValue1.ToString()) : 0;
                 float value2 = e.CellValue2 != null ? float.Parse(e.CellValue2.ToString()) : 0;
