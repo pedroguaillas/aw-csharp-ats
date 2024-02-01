@@ -1135,6 +1135,8 @@ namespace WinAppATS {
             
             private global::System.Data.DataColumn columntot;
             
+            private global::System.Data.DataColumn columncom;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public VentasDataTable() {
@@ -1290,6 +1292,14 @@ namespace WinAppATS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn comColumn {
+                get {
+                    return this.columncom;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1325,7 +1335,23 @@ namespace WinAppATS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public VentasRow AddVentasRow(string ruc, string cli, string fec, string TCV, double bi, double b0, double b12, double mi, double prr, double pri, double vrr, double vri, string tic, double miv, double tot) {
+            public VentasRow AddVentasRow(
+                        string ruc, 
+                        string cli, 
+                        string fec, 
+                        string TCV, 
+                        double bi, 
+                        double b0, 
+                        double b12, 
+                        double mi, 
+                        double prr, 
+                        double pri, 
+                        double vrr, 
+                        double vri, 
+                        string tic, 
+                        double miv, 
+                        double tot, 
+                        string com) {
                 VentasRow rowVentasRow = ((VentasRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ruc,
@@ -1342,7 +1368,8 @@ namespace WinAppATS {
                         vri,
                         tic,
                         miv,
-                        tot};
+                        tot,
+                        com};
                 rowVentasRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowVentasRow);
                 return rowVentasRow;
@@ -1380,6 +1407,7 @@ namespace WinAppATS {
                 this.columntic = base.Columns["tic"];
                 this.columnmiv = base.Columns["miv"];
                 this.columntot = base.Columns["tot"];
+                this.columncom = base.Columns["com"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1415,6 +1443,8 @@ namespace WinAppATS {
                 base.Columns.Add(this.columnmiv);
                 this.columntot = new global::System.Data.DataColumn("tot", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntot);
+                this.columncom = new global::System.Data.DataColumn("com", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncom);
                 this.columnruc.Caption = "RUC";
                 this.columnruc.MaxLength = 13;
                 this.columncli.Caption = "Cliente";
@@ -2819,6 +2849,22 @@ namespace WinAppATS {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string com {
+                get {
+                    try {
+                        return ((string)(this[this.tableVentas.comColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'com\' de la tabla \'Ventas\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableVentas.comColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsrucNull() {
                 return this.IsNull(this.tableVentas.rucColumn);
             }
@@ -2995,6 +3041,18 @@ namespace WinAppATS {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SettotNull() {
                 this[this.tableVentas.totColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IscomNull() {
+                return this.IsNull(this.tableVentas.comColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetcomNull() {
+                this[this.tableVentas.comColumn] = global::System.Convert.DBNull;
             }
         }
         
