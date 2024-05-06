@@ -28,29 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnImport = new System.Windows.Forms.Button();
             this.dgvVentas = new System.Windows.Forms.DataGridView();
-            this.ruc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cli = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tic = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fec = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TCV = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.com = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.b0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.b12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.miv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tot = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pri = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vrr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vri = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ret = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSave = new System.Windows.Forms.Button();
             this.Secuencia = new System.Windows.Forms.GroupBox();
             this.rbDecrementa = new System.Windows.Forms.RadioButton();
@@ -103,6 +86,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.pnEditar = new System.Windows.Forms.Panel();
             this.pnImportar = new System.Windows.Forms.Panel();
+            this.cbTipoC = new System.Windows.Forms.ComboBox();
+            this.dpFecha = new System.Windows.Forms.DateTimePicker();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.pgbImport = new System.Windows.Forms.ProgressBar();
             this.btnXmlToPdf = new System.Windows.Forms.Button();
             this.btnDescargar = new System.Windows.Forms.Button();
@@ -117,6 +104,23 @@
             this.lbB0 = new System.Windows.Forms.Label();
             this.lbRows = new System.Windows.Forms.Label();
             this.lbSum = new System.Windows.Forms.Label();
+            this.ruc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cli = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tic = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fec = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TCV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.com = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.b0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.b12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.miv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pri = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vrr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vri = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ret = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
             this.Secuencia.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -149,17 +153,17 @@
             // dgvVentas
             // 
             this.dgvVentas.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.dgvVentas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.dgvVentas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvVentas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.DodgerBlue;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Franklin Gothic Book", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.DodgerBlue;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Franklin Gothic Book", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ruc,
             this.cli,
@@ -181,126 +185,16 @@
             this.dgvVentas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvVentas.EnableHeadersVisualStyles = false;
             this.dgvVentas.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.dgvVentas.Location = new System.Drawing.Point(0, 522);
+            this.dgvVentas.Location = new System.Drawing.Point(0, 572);
             this.dgvVentas.Margin = new System.Windows.Forms.Padding(4);
             this.dgvVentas.Name = "dgvVentas";
-            this.dgvVentas.Size = new System.Drawing.Size(1440, 369);
+            this.dgvVentas.Size = new System.Drawing.Size(1440, 319);
             this.dgvVentas.TabIndex = 26;
             this.dgvVentas.CellParsing += new System.Windows.Forms.DataGridViewCellParsingEventHandler(this.DgvVentas_CellParsing);
             this.dgvVentas.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.DgvVentas_CellStateChanged);
             this.dgvVentas.SelectionChanged += new System.EventHandler(this.dgvVentas_SelectionChanged);
             this.dgvVentas.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvVentas_SortCompare);
             this.dgvVentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DgvVentas_KeyDown);
-            // 
-            // ruc
-            // 
-            this.ruc.HeaderText = "Identificación";
-            this.ruc.MaxInputLength = 13;
-            this.ruc.Name = "ruc";
-            this.ruc.Width = 90;
-            // 
-            // cli
-            // 
-            this.cli.HeaderText = "Cliente";
-            this.cli.MaxInputLength = 300;
-            this.cli.Name = "cli";
-            this.cli.Width = 200;
-            // 
-            // tic
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.tic.DefaultCellStyle = dataGridViewCellStyle3;
-            this.tic.HeaderText = "TIC";
-            this.tic.MaxInputLength = 2;
-            this.tic.Name = "tic";
-            this.tic.Width = 30;
-            // 
-            // fec
-            // 
-            this.fec.HeaderText = "Fecha";
-            this.fec.MaxInputLength = 10;
-            this.fec.Name = "fec";
-            this.fec.Width = 70;
-            // 
-            // TCV
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.TCV.DefaultCellStyle = dataGridViewCellStyle4;
-            this.TCV.HeaderText = "TCV";
-            this.TCV.MaxInputLength = 3;
-            this.TCV.Name = "TCV";
-            this.TCV.Width = 30;
-            // 
-            // com
-            // 
-            this.com.HeaderText = "# Comprobante";
-            this.com.MaxInputLength = 17;
-            this.com.Name = "com";
-            this.com.Width = 125;
-            // 
-            // bi
-            // 
-            this.bi.HeaderText = "BaseImp";
-            this.bi.MaxInputLength = 11;
-            this.bi.Name = "bi";
-            // 
-            // b0
-            // 
-            this.b0.HeaderText = "Base 0%";
-            this.b0.MaxInputLength = 11;
-            this.b0.Name = "b0";
-            // 
-            // b12
-            // 
-            this.b12.HeaderText = "Base 12%";
-            this.b12.MaxInputLength = 11;
-            this.b12.Name = "b12";
-            // 
-            // mi
-            // 
-            this.mi.HeaderText = "MontoIce";
-            this.mi.MaxInputLength = 11;
-            this.mi.Name = "mi";
-            // 
-            // miv
-            // 
-            this.miv.HeaderText = "IVA";
-            this.miv.Name = "miv";
-            // 
-            // tot
-            // 
-            this.tot.HeaderText = "Total";
-            this.tot.Name = "tot";
-            // 
-            // prr
-            // 
-            this.prr.HeaderText = "% Renta";
-            this.prr.MaxInputLength = 4;
-            this.prr.Name = "prr";
-            // 
-            // pri
-            // 
-            this.pri.HeaderText = "% IVA";
-            this.pri.MaxInputLength = 3;
-            this.pri.Name = "pri";
-            // 
-            // vrr
-            // 
-            this.vrr.HeaderText = "Valor retenido renta";
-            this.vrr.MaxInputLength = 11;
-            this.vrr.Name = "vrr";
-            // 
-            // vri
-            // 
-            this.vri.HeaderText = "Valor retenido IVA";
-            this.vri.MaxInputLength = 11;
-            this.vri.Name = "vri";
-            // 
-            // ret
-            // 
-            this.ret.HeaderText = "Retención";
-            this.ret.Name = "ret";
-            this.ret.Visible = false;
             // 
             // btnSave
             // 
@@ -623,9 +517,9 @@
             this.label12.Location = new System.Drawing.Point(973, 98);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(72, 17);
+            this.label12.Size = new System.Drawing.Size(68, 17);
             this.label12.TabIndex = 0;
-            this.label12.Text = "Base 12%";
+            this.label12.Text = "Base Gra";
             // 
             // label11
             // 
@@ -1003,6 +897,10 @@
             // pnImportar
             // 
             this.pnImportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.pnImportar.Controls.Add(this.cbTipoC);
+            this.pnImportar.Controls.Add(this.dpFecha);
+            this.pnImportar.Controls.Add(this.label13);
+            this.pnImportar.Controls.Add(this.label14);
             this.pnImportar.Controls.Add(this.pgbImport);
             this.pnImportar.Controls.Add(this.btnXmlToPdf);
             this.pnImportar.Controls.Add(this.btnDescargar);
@@ -1013,9 +911,61 @@
             this.pnImportar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnImportar.Location = new System.Drawing.Point(0, 430);
             this.pnImportar.Name = "pnImportar";
-            this.pnImportar.Size = new System.Drawing.Size(1440, 46);
+            this.pnImportar.Size = new System.Drawing.Size(1440, 96);
             this.pnImportar.TabIndex = 22;
             this.pnImportar.Visible = false;
+            // 
+            // cbTipoC
+            // 
+            this.cbTipoC.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cbTipoC.FormattingEnabled = true;
+            this.cbTipoC.Items.AddRange(new object[] {
+            "Factura",
+            "Nota de crédito",
+            "Retención"});
+            this.cbTipoC.Location = new System.Drawing.Point(683, 61);
+            this.cbTipoC.Name = "cbTipoC";
+            this.cbTipoC.Size = new System.Drawing.Size(121, 24);
+            this.cbTipoC.TabIndex = 20;
+            this.cbTipoC.Visible = false;
+            // 
+            // dpFecha
+            // 
+            this.dpFecha.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dpFecha.Location = new System.Drawing.Point(566, 62);
+            this.dpFecha.MaxDate = new System.DateTime(2030, 12, 31, 0, 0, 0, 0);
+            this.dpFecha.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.dpFecha.Name = "dpFecha";
+            this.dpFecha.Size = new System.Drawing.Size(100, 22);
+            this.dpFecha.TabIndex = 25;
+            this.dpFecha.Visible = false;
+            // 
+            // label13
+            // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(680, 41);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(123, 17);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "Tipo comprobante";
+            this.label13.Visible = false;
+            // 
+            // label14
+            // 
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(563, 41);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(47, 17);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "Fecha";
+            this.label14.Visible = false;
             // 
             // pgbImport
             // 
@@ -1078,7 +1028,7 @@
             this.pnVista.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
             this.pnVista.Controls.Add(this.cbRetExt);
             this.pnVista.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnVista.Location = new System.Drawing.Point(0, 476);
+            this.pnVista.Location = new System.Drawing.Point(0, 526);
             this.pnVista.Name = "pnVista";
             this.pnVista.Size = new System.Drawing.Size(1440, 46);
             this.pnVista.TabIndex = 25;
@@ -1182,6 +1132,116 @@
             this.lbSum.TabIndex = 2;
             this.lbSum.Text = "-";
             // 
+            // ruc
+            // 
+            this.ruc.HeaderText = "Identificación";
+            this.ruc.MaxInputLength = 13;
+            this.ruc.Name = "ruc";
+            this.ruc.Width = 90;
+            // 
+            // cli
+            // 
+            this.cli.HeaderText = "Cliente";
+            this.cli.MaxInputLength = 300;
+            this.cli.Name = "cli";
+            this.cli.Width = 200;
+            // 
+            // tic
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.tic.DefaultCellStyle = dataGridViewCellStyle7;
+            this.tic.HeaderText = "TIC";
+            this.tic.MaxInputLength = 2;
+            this.tic.Name = "tic";
+            this.tic.Width = 30;
+            // 
+            // fec
+            // 
+            this.fec.HeaderText = "Fecha";
+            this.fec.MaxInputLength = 10;
+            this.fec.Name = "fec";
+            this.fec.Width = 70;
+            // 
+            // TCV
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.TCV.DefaultCellStyle = dataGridViewCellStyle8;
+            this.TCV.HeaderText = "TCV";
+            this.TCV.MaxInputLength = 3;
+            this.TCV.Name = "TCV";
+            this.TCV.Width = 30;
+            // 
+            // com
+            // 
+            this.com.HeaderText = "# Comprobante";
+            this.com.MaxInputLength = 17;
+            this.com.Name = "com";
+            this.com.Width = 125;
+            // 
+            // bi
+            // 
+            this.bi.HeaderText = "BaseImp";
+            this.bi.MaxInputLength = 11;
+            this.bi.Name = "bi";
+            // 
+            // b0
+            // 
+            this.b0.HeaderText = "Base 0%";
+            this.b0.MaxInputLength = 11;
+            this.b0.Name = "b0";
+            // 
+            // b12
+            // 
+            this.b12.HeaderText = "Base Gra";
+            this.b12.MaxInputLength = 11;
+            this.b12.Name = "b12";
+            // 
+            // mi
+            // 
+            this.mi.HeaderText = "MontoIce";
+            this.mi.MaxInputLength = 11;
+            this.mi.Name = "mi";
+            // 
+            // miv
+            // 
+            this.miv.HeaderText = "IVA";
+            this.miv.Name = "miv";
+            // 
+            // tot
+            // 
+            this.tot.HeaderText = "Total";
+            this.tot.Name = "tot";
+            // 
+            // prr
+            // 
+            this.prr.HeaderText = "% Renta";
+            this.prr.MaxInputLength = 4;
+            this.prr.Name = "prr";
+            // 
+            // pri
+            // 
+            this.pri.HeaderText = "% IVA";
+            this.pri.MaxInputLength = 3;
+            this.pri.Name = "pri";
+            // 
+            // vrr
+            // 
+            this.vrr.HeaderText = "Valor retenido renta";
+            this.vrr.MaxInputLength = 11;
+            this.vrr.Name = "vrr";
+            // 
+            // vri
+            // 
+            this.vri.HeaderText = "Valor retenido IVA";
+            this.vri.MaxInputLength = 11;
+            this.vri.Name = "vri";
+            // 
+            // ret
+            // 
+            this.ret.HeaderText = "Retención";
+            this.ret.Name = "ret";
+            this.ret.Visible = false;
+            // 
             // FormVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1213,6 +1273,7 @@
             this.pnEditar.ResumeLayout(false);
             this.pnEditar.PerformLayout();
             this.pnImportar.ResumeLayout(false);
+            this.pnImportar.PerformLayout();
             this.pnVista.ResumeLayout(false);
             this.pnVista.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1289,6 +1350,12 @@
         private System.Windows.Forms.Label lbB12;
         private System.Windows.Forms.Label lbB0;
         private System.Windows.Forms.Label lbVri;
+        private System.Windows.Forms.ProgressBar pgbImport;
+        private System.Windows.Forms.Button btnXmlToPdf;
+        private System.Windows.Forms.DateTimePicker dpFecha;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox cbTipoC;
         private System.Windows.Forms.DataGridViewTextBoxColumn ruc;
         private System.Windows.Forms.DataGridViewTextBoxColumn cli;
         private System.Windows.Forms.DataGridViewTextBoxColumn tic;
@@ -1306,7 +1373,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn vrr;
         private System.Windows.Forms.DataGridViewTextBoxColumn vri;
         private System.Windows.Forms.DataGridViewTextBoxColumn ret;
-        private System.Windows.Forms.ProgressBar pgbImport;
-        private System.Windows.Forms.Button btnXmlToPdf;
     }
 }

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using WinAppATS.Services;
 
 namespace WinAppATS
 {
@@ -185,6 +186,8 @@ namespace WinAppATS
                     case 0: base0 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                     case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                     case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                    case 4: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                    case 5: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                     case 8: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                     case 6: imponible += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                     default:
@@ -516,6 +519,21 @@ namespace WinAppATS
                 bar.Value = 100;
                 bar.Visible = false;
             }
+        }
+
+        public void descargaBot(string info, string ano, int mes, int tc, int ta)
+        {
+            Cliente cliente = new Cliente();
+            DataRow dataRow = cliente.getClienteRow(info.Substring(0, 13));
+            string contraseña = dataRow != null ? dataRow["sri"].ToString() : null;
+            if (contraseña == null)
+            {
+                MessageBox.Show("Debe actualizar la contraseña del SRI");
+                return;
+            }
+            Bot bot = new Bot();
+            string tipoC = tc == 0 ? "1" : (tc == 1 ? "3" : "6");
+            bot.DescargarRecibidos(info, contraseña, ano, (mes + 1).ToString(), tipoC, ta);
         }
 
         private List<string> extraerAutorizaciones(string path)
@@ -883,7 +901,7 @@ namespace WinAppATS
             double imp = double.Parse(imponible.Equals("") ? "0" : imponible);
             double b0 = double.Parse(base0.Equals("") ? "0" : base0);
             double b12 = double.Parse(base12.Equals("") ? "0" : base12);
-            double iva = Math.Round(b12 * .12, 2);
+            double iva = Math.Round(b12 * .15, 2);
             dgvCompras.Rows.Add(
                 "",  //Codigo de compra debe ser nulo al final generar el codigo
                 ruc,

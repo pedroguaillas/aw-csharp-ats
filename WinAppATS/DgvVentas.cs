@@ -129,7 +129,7 @@ namespace WinAppATS
                                                 where element.NodeType == System.Xml.XmlNodeType.CDATA
                                                 select element.Parent.Value.Trim();
 
-                            string BodyHtml = queryCDATAXML.ToList<string>()[0].ToString();
+                            string BodyHtml = queryCDATAXML.ToList<string>().Any() ? queryCDATAXML.ToList<string>()[0].ToString() : XTemp.ToString();
                             XDocument xmlDoc = XDocument.Parse(BodyHtml);
 
                             string codDoc = xmlDoc.Descendants("codDoc").FirstOrDefault().Value;
@@ -147,6 +147,8 @@ namespace WinAppATS
                                         case 0: base0 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                         case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                         case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                                        case 4: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                                        case 5: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                         case 8: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                     }
 
@@ -502,6 +504,58 @@ namespace WinAppATS
 
             dgvV.FirstDisplayedScrollingRowIndex = dgvV.Rows.Count - 1;
         }
+        public void importarConDesglose()
+        {
+            Importa importa = new Importa();
+            string folder = importa.selectFolder();
+
+            if (folder == null) { return; }
+
+            string[] files = Directory.GetFiles(folder);
+
+            foreach (var file in files)
+            {
+                if (file.EndsWith(".txt"))
+                {
+                    string line = "";
+                    StreamReader filer = new StreamReader(file);
+                    int i = 0;
+
+                    while ((line = filer.ReadLine()) != null)
+                    {
+                        if (i > 0)
+                        {
+                            string[] palabras = line.Split('\t');
+                            double base12 = Math.Round(double.Parse(palabras[9].ToString().Replace(".", ",")) / 1.12, 2);
+                            double iva = Math.Round(base12 * 0.12, 2);
+                            dgvV.Rows.Add(
+                                palabras[8],
+                                "",     //Razon social
+                                "04",
+                                //xmlDoc.Descendants("tipoIdentificacionSujetoRetenido").FirstOrDefault().Value,
+                                palabras[5].Substring(0, 10),     //Fecha
+                                "F",    //Tipo comprobante venta
+                                palabras[1],
+                                base12,
+                                0,
+                                base12,
+                                0,      //Monto ICE
+                                iva,  //IVA
+                                base12 + iva,   //Total
+                                0,
+                                0,
+                                0,
+                                0,
+                                ""
+                            );
+                        }
+                        i++;
+                    }
+                }
+            }
+
+            dgvV.FirstDisplayedScrollingRowIndex = dgvV.Rows.Count - 1;
+        }
 
         private List<string> extraerAutorizaciones()
         {
@@ -546,7 +600,7 @@ namespace WinAppATS
                  b0 + b12,
                  b0, b12,
                 0, //Monto ICE
-                Math.Round(b12 * .12, 2),
+                Math.Round(b12 * .15, 2),
                 b0 + b12 + Math.Round(b12 * .12, 2),
                 0,
                 0,

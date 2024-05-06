@@ -464,7 +464,7 @@ namespace WinAppATS
                         break;
                     case 8:
                         calBaseImp(e.Cell.RowIndex);
-                        calIva(e.Cell.RowIndex);
+                        //calIva(e.Cell.RowIndex);
                         calTotal(e.Cell.RowIndex);
                         calValRetRenta(e.Cell.RowIndex);
                         calValRetIva(e.Cell.RowIndex);
@@ -571,8 +571,8 @@ namespace WinAppATS
 
         private void btnRecuperado_Click(object sender, EventArgs e)
         {
-            dgv.importReport(pgbImport);
-            //dgv.importReportText(pgbImport);
+            //dgv.importReport(pgbImport);
+            //dgv.importarConDesglose();
             //dgv.rellenarClientes();
             //dgv.rellenarClientesMasivo();
         }
@@ -636,7 +636,32 @@ namespace WinAppATS
 
         private void btnDescargar_Click(object sender, EventArgs e)
         {
-            dgv.descarga(pgbImport);
+            //string info = this.Name.Substring(this.Name.Length - 19);
+            //Cliente cliente = new Cliente();
+            //DataRow dataRow = cliente.getClienteRow(info.Substring(0, 13));
+            //string contraseña = dataRow != null ? dataRow["sri"].ToString() : null;
+            //if (contraseña == null)
+            //{
+            //    MessageBox.Show("Debe actualizar la contraseña del SRI");
+            //    return;
+            //}
+            //Bot bot = new Bot();
+            //string tc = "";
+            //if (cbTipoC.SelectedIndex == 0)
+            //{
+            //    tc = "1";
+            //}
+            //else if (cbTipoC.SelectedIndex == 1)
+            //{
+            //    tc = "3";
+            //}
+            //else if (cbTipoC.SelectedIndex == 2)
+            //{
+            //    tc = "6";
+            //}
+
+            //bot.DescargaEmitodos(info, contraseña, dpFecha.Text, tc);
+            //dgv.descarga(pgbImport);
             //dgv.descargarError(pgbImport);
         }
 

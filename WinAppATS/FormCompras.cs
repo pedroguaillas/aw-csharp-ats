@@ -75,7 +75,11 @@ namespace WinAppATS
 
         private void FormCompras_Load(object sender, EventArgs e)
         {
-            dgv.Load("c" + this.Name.Substring(this.Name.Length - 19));
+            String info = this.Name.Substring(this.Name.Length - 19);
+            dgv.Load("c" + info);
+            tbAno.Text = info.Substring(13, 4);
+            cbMes.SelectedIndex = int.Parse(info.Substring(17)) - 1;
+            cbTipoComprobante.SelectedIndex = 0;
             sumcolumns();
             duplicate();
         }
@@ -189,7 +193,7 @@ namespace WinAppATS
                 string idContacto = tbRuc.Text;
                 ImportContactos import = new ImportContactos();
                 Contacto contacto = null;
-            
+
                 switch (tpId)
                 {
                     case 0:
@@ -697,13 +701,13 @@ namespace WinAppATS
                 }
                 else if (column == 13)
                 {
-                    calIva(e.Cell.RowIndex);
+                    //calIva(e.Cell.RowIndex);
                     calTotal(e.Cell.RowIndex);
                     calValRet(e.Cell.RowIndex);
                 }
                 else if (column == 15)
                 {
-                    calIva(e.Cell.RowIndex);
+                    //calIva(e.Cell.RowIndex);
                     calTotal(e.Cell.RowIndex);
                     calValRet(e.Cell.RowIndex);
                 }
@@ -814,8 +818,8 @@ namespace WinAppATS
 
         private void btnImpRecuperado_Click(object sender, EventArgs e)
         {
-            dgv.importReport(pgbImport);
-            sumcolumns();
+            //dgv.importReport(pgbImport);
+            //sumcolumns();
         }
 
         private void btnRecuperado_Click(object sender, EventArgs e)
@@ -889,7 +893,8 @@ namespace WinAppATS
 
         private void btnDescargar_Click(object sender, EventArgs e)
         {
-            dgv.descargar(this.Name.Substring(this.Name.Length - 19), pgbImport);
+            //dgv.descargar(this.Name.Substring(this.Name.Length - 19), pgbImport);
+            dgv.descargaBot(this.Name.Substring(this.Name.Length - 19), tbAno.Text, cbMes.SelectedIndex, cbTipoComprobante.SelectedIndex,cbTpArchivo.SelectedIndex);
         }
 
         private void dgvCompras_SelectionChanged(object sender, EventArgs e)
@@ -939,7 +944,7 @@ namespace WinAppATS
 
             lbBNoIva.Text = "bNoIva: " + Math.Round(bNoIva, 2);
             lbB0.Text = "b0: " + Math.Round(b0, 2);
-            lbB12.Text = "b12: " + Math.Round(b12, 2);
+            lbB12.Text = "bGra: " + Math.Round(b12, 2);
             lbIva.Text = "IVA: " + Math.Round(iva, 2);
             lbRetencion.Text = "Retención: " + Math.Round(ret, 2);
         }
@@ -1027,6 +1032,11 @@ namespace WinAppATS
                 pgbImport.Value = 100;
             }
         }
-    ~FormCompras() { }
+        ~FormCompras() { }
+
+        private void tbAno_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !(char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back);
+        }
     }
 }
