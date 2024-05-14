@@ -779,7 +779,7 @@ namespace WinAppATS
 
         private double calBaseImp(int row)
         {
-            return double.Parse(dgvCompras.Rows[row].Cells[12].Value.ToString()) + double.Parse(dgvCompras.Rows[row].Cells[13].Value.ToString());
+            return double.Parse(dgvCompras.Rows[row].Cells[12].Value.ToString()) + double.Parse(dgvCompras.Rows[row].Cells[13].Value.ToString()) + double.Parse(dgvCompras.Rows[row].Cells[14].Value.ToString());
         }
 
         private void calIva(int row)
@@ -894,7 +894,7 @@ namespace WinAppATS
         private void btnDescargar_Click(object sender, EventArgs e)
         {
             //dgv.descargar(this.Name.Substring(this.Name.Length - 19), pgbImport);
-            dgv.descargaBot(this.Name.Substring(this.Name.Length - 19), tbAno.Text, cbMes.SelectedIndex, cbTipoComprobante.SelectedIndex,cbTpArchivo.SelectedIndex);
+            dgv.descargaBot(this.Name.Substring(this.Name.Length - 19), tbAno.Text, cbMes.SelectedIndex, cbTipoComprobante.SelectedIndex, cbTpArchivo.SelectedIndex);
         }
 
         private void dgvCompras_SelectionChanged(object sender, EventArgs e)
@@ -936,7 +936,7 @@ namespace WinAppATS
             {
                 bNoIva += double.Parse(dgvCompras.Rows[i].Cells[11].Value.ToString()) * (dgvCompras.Rows[i].Cells[5].Value.ToString().Trim().Equals("N/C") ? -1 : 1);
                 b0 += double.Parse(dgvCompras.Rows[i].Cells[12].Value.ToString()) * (dgvCompras.Rows[i].Cells[5].Value.ToString().Trim().Equals("N/C") ? -1 : 1);
-                b12 += double.Parse(dgvCompras.Rows[i].Cells[13].Value.ToString()) * (dgvCompras.Rows[i].Cells[5].Value.ToString().Trim().Equals("N/C") ? -1 : 1);
+                b12 += (double.Parse(dgvCompras.Rows[i].Cells[13].Value.ToString()) + double.Parse(dgvCompras.Rows[i].Cells[14].Value.ToString())) * (dgvCompras.Rows[i].Cells[5].Value.ToString().Trim().Equals("N/C") ? -1 : 1);
                 iva += double.Parse(dgvCompras.Rows[i].Cells[16].Value.ToString()) * (dgvCompras.Rows[i].Cells[5].Value.ToString().Trim().Equals("N/C") ? -1 : 1);
                 ret += double.Parse(dgvCompras.Rows[i].Cells[31].Value.ToString());
                 //dgvCompras.Rows[i].Cells[5].Style.BackColor = dgvCompras.Rows[i].Cells[5].Value.ToString().Equals("N/C") ? Color.Red : Color.Yellow;

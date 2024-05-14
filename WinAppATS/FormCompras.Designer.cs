@@ -648,6 +648,7 @@
             this.cbBaseExeMontoIce.TabIndex = 2;
             this.cbBaseExeMontoIce.Text = "Base exe, Monto ice";
             this.cbBaseExeMontoIce.UseVisualStyleBackColor = true;
+            this.cbBaseExeMontoIce.Visible = false;
             this.cbBaseExeMontoIce.CheckedChanged += new System.EventHandler(this.cbBaseExeMontoIce_CheckedChanged);
             // 
             // cbNotasC
@@ -1452,10 +1453,9 @@
             dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle40.NullValue = "0";
             this.be.DefaultCellStyle = dataGridViewCellStyle40;
-            this.be.HeaderText = "Base Excenta";
+            this.be.HeaderText = "Base Grav 5%";
             this.be.MaxInputLength = 11;
             this.be.Name = "be";
-            this.be.Visible = false;
             this.be.Width = 75;
             // 
             // mi
@@ -1466,7 +1466,6 @@
             this.mi.HeaderText = "Monto Ice";
             this.mi.MaxInputLength = 11;
             this.mi.Name = "mi";
-            this.mi.Visible = false;
             this.mi.Width = 75;
             // 
             // miv

@@ -137,6 +137,7 @@ namespace WinAppATS
                             if (codDoc == "01" || codDoc == "04")
                             {
                                 double base0 = 0;
+                                double base5 = 0;
                                 double base12 = 0;
                                 double iva = 0;
 
@@ -148,7 +149,7 @@ namespace WinAppATS
                                         case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                         case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                         case 4: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                                        case 5: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                                        case 5: base5 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                         case 8: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
                                     }
 
@@ -164,15 +165,15 @@ namespace WinAppATS
                                     xmlDoc.Descendants("fechaEmision").FirstOrDefault().Value,
                                     codDoc == "01" ? "F" : "N/C",//Tipo comprobante venta
                                     xmlDoc.Descendants("estab").FirstOrDefault().Value + "-" + xmlDoc.Descendants("ptoEmi").FirstOrDefault().Value + "-" + xmlDoc.Descendants("secuencial").FirstOrDefault().Value,
-                                    base0 + base12, base0, base12,
+                                    base0 + base5 + base12, base0, base5 + base12,
                                     0, //Monto ICE
                                     iva, //IVA
-                                    base12 + base0 + iva,//Total
+                                    base5 + base12 + base0 + iva,//Total
                                     0,
                                     0,
                                     0,
                                     0,
-                                    ""
+                                    (base5 == 0 ? "" : base5.ToString())
                                 );
 
                                 if (tpId == "06" && !inserts.Contains(xmlDoc.Descendants("identificacionComprador").FirstOrDefault().Value))

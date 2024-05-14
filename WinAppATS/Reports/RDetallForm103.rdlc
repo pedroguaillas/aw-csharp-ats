@@ -349,7 +349,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!b0.Value))+Sum(CDbl(Fields!b12.Value))-Sum(CDbl(Fields!mi.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDbl(Fields!b0.Value))+Sum(CDbl(Fields!b12.Value))+Sum(CDbl(Fields!be.Value))-Sum(CDbl(Fields!mi.Value)),2)</Value>
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -426,7 +426,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!b0.Value))+Sum(CDbl(Fields!b12.Value))-Sum(CDbl(Fields!mi.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDbl(Fields!b0.Value))+Sum(CDbl(Fields!b12.Value))+Sum(CDbl(Fields!be.Value))-Sum(CDbl(Fields!mi.Value)),2)</Value>
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -501,7 +501,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!b0.Value))+Sum(CDbl(Fields!b12.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDbl(Fields!b0.Value))+Sum(CDbl(Fields!b12.Value))+Sum(CDbl(Fields!be.Value))-Sum(CDbl(Fields!mi.Value)),2)</Value>
                                   <Style>
                                     <FontFamily>Arial Narrow</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -527,6 +527,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

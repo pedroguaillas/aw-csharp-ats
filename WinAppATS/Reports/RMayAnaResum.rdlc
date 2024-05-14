@@ -371,7 +371,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!b12.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
+                                  <Value>=FormatNumber(Sum((CDbl(Fields!b12.Value)+CDbl(Fields!be.Value))*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -788,7 +788,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!b12.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
+                                  <Value>=FormatNumber(Sum((CDbl(Fields!b12.Value)+CDbl(Fields!be.Value))*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -813,6 +813,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

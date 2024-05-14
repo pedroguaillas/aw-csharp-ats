@@ -253,8 +253,8 @@ namespace WinAppATS
 
                     createElement(detalleCompras, doc, "baseNoGraIva", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("bni"))).ToString()));
                     createElement(detalleCompras, doc, "baseImponible", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("b0"))).ToString()));
-                    createElement(detalleCompras, doc, "baseImpGrav", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("b12"))).ToString()));
-                    createElement(detalleCompras, doc, "baseImpExe", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("be"))).ToString()));
+                    createElement(detalleCompras, doc, "baseImpGrav", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("b12")) + decimal.Parse((string)s.Element("be"))).ToString()));
+                    createElement(detalleCompras, doc, "baseImpExe", "0.00");
                     createElement(detalleCompras, doc, "montoIce", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("mi"))).ToString()));
                     createElement(detalleCompras, doc, "montoIva", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("miv"))).ToString()));
                     createElement(detalleCompras, doc, "valRetBien10", dec(comp.g.Sum(s => decimal.Parse((string)s.Element("r10"))).ToString()));
@@ -290,7 +290,7 @@ namespace WinAppATS
                             air.AppendChild(detalleAir);
 
                             createElement(detalleAir, doc, "codRetAir", _(meth, ("cda")));
-                            createElement(detalleAir, doc, "baseImpAir", dec((decimal.Parse((string)meth.Element("b0")) + decimal.Parse((string)meth.Element("b12")) - decimal.Parse((string)meth.Element("mi"))).ToString()));
+                            createElement(detalleAir, doc, "baseImpAir", dec((decimal.Parse((string)meth.Element("b0")) + decimal.Parse((string)meth.Element("b12")) + decimal.Parse((string)meth.Element("be")) - decimal.Parse((string)meth.Element("mi"))).ToString()));
                             createElement(detalleAir, doc, "porcentajeAir", dec(_(meth, ("por"))));
                             createElement(detalleAir, doc, "valRetAir", dec(_(meth, ("vra"))));
                         }

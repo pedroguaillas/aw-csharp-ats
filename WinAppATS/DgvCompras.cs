@@ -174,31 +174,44 @@ namespace WinAppATS
         {
             double imponible = 0;
             double base0 = 0;
+            double base5 = 0;
             double base12 = 0;
             double ice = 0;
             double descuentoAdicional = 0;
+            double iva5 = 0;
             double iva = 0;
 
             foreach (var totalImpuesto in xmlDoc.Descendants("totalImpuesto"))
             {
-                switch (Int32.Parse(totalImpuesto.Descendants("codigoPorcentaje").FirstOrDefault().Value))
+                //Valores bases de impestos al IVA
+                int codigoImpuesto = Int32.Parse(totalImpuesto.Descendants("codigo").FirstOrDefault().Value);
+                if (codigoImpuesto == 2)
                 {
-                    case 0: base0 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                    case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                    case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                    case 4: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                    case 5: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                    case 8: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                    case 6: imponible += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
-                    default:
-                        if (Int32.Parse(totalImpuesto.Descendants("codigo").FirstOrDefault().Value) == 3)
-                        {
-                            ice += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
-                        }
-                        break;
-                }
+                    int codigoPorcentaje = Int32.Parse(totalImpuesto.Descendants("codigoPorcentaje").FirstOrDefault().Value);
+                    switch (codigoPorcentaje)
+                    {
+                        case 0: base0 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                        case 2: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                        case 3: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                        case 4: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                        case 5: base5 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                        case 8: base12 += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                        case 6: imponible += Math.Round(double.Parse(totalImpuesto.Descendants("baseImponible").FirstOrDefault().Value.Replace('.', dec)), 2); break;
+                    }
 
-                iva += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
+                    if (codigoPorcentaje == 5)
+                    {
+                        iva5 += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
+                    }
+                    else
+                    {
+                        iva += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
+                    }
+                }
+                else if (codigoImpuesto == 3)
+                {
+                    ice += Math.Round(double.Parse(totalImpuesto.Descendants("valor").FirstOrDefault().Value.Replace('.', dec)), 2);
+                }
 
                 if (totalImpuesto.Descendants("descuentoAdicional").Any())
                 {
@@ -206,21 +219,7 @@ namespace WinAppATS
                 }
             }
 
-            string codCombustible = "";
-            //Si quiere detectar las facturas de gasolina o diesel
-            //if (gasolinera && xmlDoc.Elements("detalle").Count() == 1)
-            //{
-            //    switch (xmlDoc.Descendants("codigoPrincipal").FirstOrDefault().Value)
-            //    {
-            //        case "0103": codCombustible = "SÚPER"; break;
-            //        case "0101": codCombustible = "EXTRA"; break;
-            //        case "0174": codCombustible = "EXTRAE"; break;
-            //        case "0121": codCombustible = "DIESELP"; break;
-            //        case "0104": codCombustible = "DIESEL2"; break;
-            //    }
-            //}
-
-            string infoA = codCombustible;
+            string infoA = "";
 
             if (xmlDoc.Descendants("tipoIdentificacionComprador").Any() && xmlDoc.Descendants("tipoIdentificacionComprador").FirstOrDefault().Value == "05")
             {
@@ -246,9 +245,9 @@ namespace WinAppATS
             xmlDoc.Descendants("ptoEmi").FirstOrDefault().Value,
             xmlDoc.Descendants("secuencial").FirstOrDefault().Value,
             autorizacion,
-            imponible, base0, base12, 0, ice,
-            iva,    //IVA
-            base0 + base12 + iva,   //Total
+            imponible, base0, base12, base5, ice,
+            iva5 + iva,    //IVA
+            base0 + base12 + base5 + iva,   //Total
 
             //Retenciones
             0, 0, 0, 0, 0, 0,
@@ -915,7 +914,8 @@ namespace WinAppATS
                 secuencial.PadLeft(9, '0'),
                 autorizacion,
                 imp, b0, b12,
-                0, 0,
+                0, // Gra 5%
+                0,
                 iva,//IVA
                 Math.Round(b0 + b12 + iva, 2),//Total
 
