@@ -20,9 +20,9 @@
 
         public static double IVA = .12;
 
-        public static char dec = ',';
+        public static char dec = '.';
 
-        public static char nodec = '.';
+        public static char nodec = ',';
 
         public static double round(double num)
         {

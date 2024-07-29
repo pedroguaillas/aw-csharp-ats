@@ -275,7 +275,7 @@ namespace WinAppATS
 
                     foreach (var meth in comp.g)
                     {
-                        createElement(formasDePago, doc, "formaPago", (double.Parse((string)meth.Element("bni")) + double.Parse((string)meth.Element("b0")) + double.Parse((string)meth.Element("b12")) > 999.99) ? "20" : "01");
+                        createElement(formasDePago, doc, "formaPago", (double.Parse((string)meth.Element("bni")) + double.Parse((string)meth.Element("b0")) + double.Parse((string)meth.Element("be")) + double.Parse((string)meth.Element("b12")) > 999.99) ? "20" : "01");
                     }
 
                     if (_(compra, ("cda")) != null && _(compra, ("cda")) != "")
@@ -290,7 +290,7 @@ namespace WinAppATS
                             air.AppendChild(detalleAir);
 
                             createElement(detalleAir, doc, "codRetAir", _(meth, ("cda")));
-                            createElement(detalleAir, doc, "baseImpAir", dec((decimal.Parse((string)meth.Element("b0")) + decimal.Parse((string)meth.Element("b12")) + decimal.Parse((string)meth.Element("be")) - decimal.Parse((string)meth.Element("mi"))).ToString()));
+                            createElement(detalleAir, doc, "baseImpAir", dec((decimal.Parse((string)meth.Element("bni")) + decimal.Parse((string)meth.Element("b0")) + decimal.Parse((string)meth.Element("b12")) + decimal.Parse((string)meth.Element("be")) - decimal.Parse((string)meth.Element("mi"))).ToString()));
                             createElement(detalleAir, doc, "porcentajeAir", dec(_(meth, ("por"))));
                             createElement(detalleAir, doc, "valRetAir", dec(_(meth, ("vra"))));
                         }
