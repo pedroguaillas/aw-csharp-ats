@@ -571,7 +571,7 @@ namespace WinAppATS
 
         private void btnRecuperado_Click(object sender, EventArgs e)
         {
-            //dgv.importReport(pgbImport);
+            dgv.importReport(pgbImport);
             //dgv.importarConDesglose();
             //dgv.rellenarClientes();
             //dgv.rellenarClientesMasivo();
@@ -661,7 +661,7 @@ namespace WinAppATS
             //}
 
             //bot.DescargaEmitodos(info, contraseña, dpFecha.Text, tc);
-            //dgv.descarga(pgbImport);
+            dgv.descarga(pgbImport);
             //dgv.descargarError(pgbImport);
         }
 

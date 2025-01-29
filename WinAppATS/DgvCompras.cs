@@ -487,10 +487,10 @@ namespace WinAppATS
                     if (i > 0)
                     {
                         string[] palabras = line.Split('\t');
-                        if (palabras[9].Length == 49 || palabras[10].Length == 49)
+                        if (palabras[3].Length == 49 || palabras[4].Length == 49)
                         {
                             AutorizacionFacturas autorizacion = new AutorizacionFacturas();
-                            string code = palabras[palabras[9].Length == 49 ? 9 : 10];
+                            string code = palabras[palabras[3].Length == 49 ? 3 : 4];
 
                             if (!autorizacion.Descarga(code, path.Remove(path.Length - 4)))
                             {
@@ -551,9 +551,9 @@ namespace WinAppATS
                         if (i > 0)
                         {
                             string[] palabras = line.Split('\t');
-                            if (palabras[9].Length == 49 || palabras[10].Length == 49)
+                            if (palabras[3].Length == 49 || palabras[4].Length == 49)
                             {
-                                cla_accs.Add(palabras[palabras[9].Length == 49 ? 9 : 10]);
+                                cla_accs.Add(palabras[palabras[3].Length == 49 ? 3 : 4]);
                             }
                             else
                             {

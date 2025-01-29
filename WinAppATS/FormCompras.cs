@@ -80,7 +80,7 @@ namespace WinAppATS
             tbAno.Text = info.Substring(13, 4);
             cbMes.SelectedIndex = int.Parse(info.Substring(17)) - 1;
             cbTipoComprobante.SelectedIndex = 0;
-            sumcolumns();
+            //sumcolumns();
             duplicate();
         }
 
@@ -818,8 +818,8 @@ namespace WinAppATS
 
         private void btnImpRecuperado_Click(object sender, EventArgs e)
         {
-            //dgv.importReport(pgbImport);
-            //sumcolumns();
+            dgv.importReport(pgbImport);
+            sumcolumns();
         }
 
         private void btnRecuperado_Click(object sender, EventArgs e)
@@ -893,8 +893,8 @@ namespace WinAppATS
 
         private void btnDescargar_Click(object sender, EventArgs e)
         {
-            //dgv.descargar(this.Name.Substring(this.Name.Length - 19), pgbImport);
-            dgv.descargaBot(this.Name.Substring(this.Name.Length - 19), tbAno.Text, cbMes.SelectedIndex, cbTipoComprobante.SelectedIndex, cbTpArchivo.SelectedIndex);
+            dgv.descargar(this.Name.Substring(this.Name.Length - 19), pgbImport);
+            //dgv.descargaBot(this.Name.Substring(this.Name.Length - 19), tbAno.Text, cbMes.SelectedIndex, cbTipoComprobante.SelectedIndex, cbTpArchivo.SelectedIndex);
         }
 
         private void dgvCompras_SelectionChanged(object sender, EventArgs e)

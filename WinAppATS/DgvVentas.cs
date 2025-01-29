@@ -323,7 +323,7 @@ namespace WinAppATS
                     if (i > 0)
                     {
                         string[] palabras = line.Split('\t');
-                        cla_accs.Add(palabras[3]);
+                        cla_accs.Add(palabras[2]);
                     }
                     i++;
                 }

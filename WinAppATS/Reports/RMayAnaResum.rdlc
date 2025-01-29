@@ -303,7 +303,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!b0.Value)*(IIF(Fields!TCV.Value="N/C",-1,1)))+Sum(CDbl(Fields!b12.Value)*(IIF(Fields!TCV.Value="N/C",-1,1)))+Sum(CDbl(Fields!be.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!b0.Value)*(IIF(Fields!TCV.Value="N/C",-1,1)))+Sum(CDec(Fields!b12.Value)*(IIF(Fields!TCV.Value="N/C",-1,1)))+Sum(CDec(Fields!be.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -337,7 +337,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!b0.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!b0.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -371,7 +371,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum((CDbl(Fields!b12.Value)+CDbl(Fields!be.Value))*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
+                                  <Value>=FormatNumber(Sum((CDec(Fields!b12.Value)+CDbl(Fields!be.Value))*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -405,7 +405,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!miv.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!miv.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -439,7 +439,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!tot.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!tot.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -473,7 +473,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!r10.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!r10.Value)),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -507,7 +507,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!r20.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!r20.Value)),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -541,7 +541,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!r30.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!r30.Value)),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -575,7 +575,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!r50.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!r50.Value)),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -609,7 +609,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!r70.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!r70.Value)),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -643,7 +643,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!r100.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!r100.Value)),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -677,7 +677,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!vra.Value)),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!vra.Value)),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -716,7 +716,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(Sum(CDbl(Fields!b0.Value)*(IIF(Fields!TCV.Value="N/C",-1,1)))+Sum(CDbl(Fields!b12.Value)*(IIF(Fields!TCV.Value="N/C",-1,1)))+Sum(CDbl(Fields!be.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
+                                  <Value>=FormatNumber(Sum(CDec(Fields!b0.Value)*(IIF(Fields!TCV.Value="N/C",-1,1)))+Sum(CDec(Fields!b12.Value)*(IIF(Fields!TCV.Value="N/C",-1,1)))+Sum(CDec(Fields!be.Value)*(IIF(Fields!TCV.Value="N/C",-1,1))),2)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -741,6 +741,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -885,7 +886,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

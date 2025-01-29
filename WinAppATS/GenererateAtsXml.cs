@@ -270,12 +270,21 @@ namespace WinAppATS
                     pagoExt(detalleCompras, doc);
 
                     //Formas de pago
-                    XmlElement formasDePago = doc.CreateElement(string.Empty, "formasDePago", string.Empty);
-                    detalleCompras.AppendChild(formasDePago);
-
+                    double sumfp = 0;
                     foreach (var meth in comp.g)
                     {
-                        createElement(formasDePago, doc, "formaPago", (double.Parse((string)meth.Element("bni")) + double.Parse((string)meth.Element("b0")) + double.Parse((string)meth.Element("be")) + double.Parse((string)meth.Element("b12")) > 999.99) ? "20" : "01");
+                        sumfp += double.Parse((string)meth.Element("bni")) + double.Parse((string)meth.Element("b0")) + double.Parse((string)meth.Element("be")) + double.Parse((string)meth.Element("b12")) + double.Parse((string)meth.Element("mi")) + double.Parse((string)meth.Element("miv"));
+                    }
+
+                    if (sumfp >= 500)
+                    {
+                        XmlElement formasDePago = doc.CreateElement(string.Empty, "formasDePago", string.Empty);
+                        detalleCompras.AppendChild(formasDePago);
+
+                        foreach (var meth in comp.g)
+                        {
+                            createElement(formasDePago, doc, "formaPago", "20");
+                        }
                     }
 
                     if (_(compra, ("cda")) != null && _(compra, ("cda")) != "")
