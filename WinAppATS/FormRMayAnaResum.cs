@@ -60,6 +60,8 @@ namespace WinAppATS
                     convertion.convertion(dataTable);
                 }
 
+                //data.WriteXml(@"C:\Users\WinUser\Documents\rest.xml");
+
                 ReportDataSource report = new ReportDataSource("dsCompras", dataTable);
                 this.reportViewer1.ServerReport.BearerToken = null;
                 this.reportViewer1.TabIndex = 0;

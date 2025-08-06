@@ -102,7 +102,6 @@ namespace WinAppATS
         private void dgvCompras_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             int column = dgvCompras.CurrentCell.ColumnIndex;
-            //if (titleText.Equals("Cod cuenta") || titleText.Equals("Cod ATS"))
             if (column == 3 || column == 28)
             {
                 TextBox autoText = e.Control as TextBox;
@@ -701,13 +700,11 @@ namespace WinAppATS
                 }
                 else if (column == 13)
                 {
-                    //calIva(e.Cell.RowIndex);
                     calTotal(e.Cell.RowIndex);
                     calValRet(e.Cell.RowIndex);
                 }
                 else if (column == 15)
                 {
-                    //calIva(e.Cell.RowIndex);
                     calTotal(e.Cell.RowIndex);
                     calValRet(e.Cell.RowIndex);
                 }
@@ -725,9 +722,9 @@ namespace WinAppATS
                     calValRet(e.Cell.RowIndex);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Digitar del acuerdo al campo correspondiente");
+                MessageBox.Show("Digitar de acuerdo al campo correspondiente Error " + ex.Message);
             }
         }
 
@@ -756,16 +753,11 @@ namespace WinAppATS
                     double porcentaje = 0;
                     string por = dataRow[2].ToString();
                     por = por.Replace('.', ',');
-                    //por = por.Replace(Const.dec, Const.nodec);
                     if (cbCalculable.Checked && double.TryParse(por, out porcentaje))
                     {
                         dgvCompras.Rows[row].Cells[30].Value = porcentaje;
                         calValRet(row);
                     }
-                    //else
-                    //{
-                    //    dgvCompras.Rows[row].Cells[30].Value = 0;
-                    //}
                 }
             }
             else if (cod.Equals(""))
@@ -787,7 +779,6 @@ namespace WinAppATS
             if (cbCalculable.Checked)
             {
                 dgvCompras.Rows[row].Cells[16].Value = Const.round((double.Parse(dgvCompras.Rows[row].Cells[13].Value.ToString())) * IVA);
-                // dgvCompras.Rows[row].Cells[16].Value = Math.Round((double.Parse(dgvCompras.Rows[row].Cells[13].Value.ToString())) * IVA, 2);
             }
         }
 
@@ -795,7 +786,7 @@ namespace WinAppATS
         {
             if (cbCalculable.Checked)
             {
-                dgvCompras.Rows[row].Cells[17].Value = calBaseImp(row) + double.Parse(dgvCompras.Rows[row].Cells[14].Value.ToString()) + double.Parse(dgvCompras.Rows[row].Cells[16].Value.ToString());
+                dgvCompras.Rows[row].Cells[17].Value = calBaseImp(row) + cdec(row, 16);
             }
         }
 
@@ -803,9 +794,23 @@ namespace WinAppATS
         {
             if (cbCalculable.Checked)
             {
-                dgvCompras.Rows[row].Cells[31].Value = dgvCompras.Rows[row].Cells[30].Value == null || dgvCompras.Rows[row].Cells[30].Value.Equals("") ? 0 : Const.round((calBaseImp(row) - double.Parse(dgvCompras.Rows[row].Cells[15].Value.ToString())) * double.Parse(dgvCompras.Rows[row].Cells[30].Value.ToString()) / 100);
-                //dgvCompras.Rows[row].Cells[31].Value = dgvCompras.Rows[row].Cells[30].Value == null || dgvCompras.Rows[row].Cells[30].Value.Equals("") ? 0 : Math.Round((calBaseImp(row) - double.Parse(dgvCompras.Rows[row].Cells[15].Value.ToString())) * double.Parse(dgvCompras.Rows[row].Cells[30].Value.ToString()) / 100, 2);
+                dgvCompras.Rows[row].Cells[31].Value = dgvCompras.Rows[row].Cells[30].Value == null || dgvCompras.Rows[row].Cells[30].Value.Equals("") ? 0 : Const.round((calBaseImp(row) - cdec(row, 15)) * cdec(row, 30) / 100);
             }
+        }
+
+        private double cdec(int row, int col)
+        {
+            double resultDouble = 0;
+            try
+            {
+                var val = dgvCompras.Rows[row].Cells[col].Value;
+                resultDouble = double.Parse(val.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en la columna " + col + " " + ex.Message);
+            }
+            return resultDouble;
         }
 
         private void tbSearchValue_KeyUp(object sender, KeyEventArgs e)
@@ -894,7 +899,6 @@ namespace WinAppATS
         private void btnDescargar_Click(object sender, EventArgs e)
         {
             dgv.descargar(this.Name.Substring(this.Name.Length - 19), pgbImport);
-            //dgv.descargaBot(this.Name.Substring(this.Name.Length - 19), tbAno.Text, cbMes.SelectedIndex, cbTipoComprobante.SelectedIndex, cbTpArchivo.SelectedIndex);
         }
 
         private void dgvCompras_SelectionChanged(object sender, EventArgs e)

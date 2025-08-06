@@ -69,6 +69,7 @@ namespace WinAppATS
                 for (int i = 0; i < ColumnCount; i++)
                 {
                     dataRow[i] = dr.Cells[i].Value;
+                    //dataRow[i] = ((string)dr.Cells[i].Value).Split();
                 }
                 dt.Rows.Add(dataRow);
             }
@@ -247,7 +248,7 @@ namespace WinAppATS
             autorizacion,
             imponible, base0, base12, base5, ice,
             iva5 + iva,    //IVA
-            base0 + base12 + base5 + iva,   //Total
+            (codDoc.Equals("01") ? double.Parse(xmlDoc.Descendants("importeTotal").FirstOrDefault().Value.Replace('.', dec)) : base0 + base12 + base5 + iva5 + iva),   //Total
 
             //Retenciones
             0, 0, 0, 0, 0, 0,

@@ -58,6 +58,41 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnImport = new System.Windows.Forms.Button();
             this.dgvCompras = new System.Windows.Forms.DataGridView();
+            this.cod = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RUC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ccu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dcu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TCV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fec = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Est = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sec = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aut = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bni = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.b0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.b12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.be = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.miv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.r10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.r20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.r30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.r50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.r70 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.r100 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.es1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pe1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.se1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.au1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.coa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.por = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.em = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.cbRepetirProveedor = new System.Windows.Forms.CheckBox();
             this.cbContabilidad = new System.Windows.Forms.CheckBox();
@@ -136,41 +171,6 @@
             this.lbB0 = new System.Windows.Forms.Label();
             this.lbRows = new System.Windows.Forms.Label();
             this.lbSum = new System.Windows.Forms.Label();
-            this.cod = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RUC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rs = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ccu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dcu = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TCV = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fec = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Est = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sec = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aut = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bni = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.b0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.b12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.be = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.miv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tot = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.r10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.r20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.r30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.r50 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.r70 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.r100 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.es1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pe1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.se1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.au1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.coa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.por = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.em = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sm = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompras)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -262,6 +262,333 @@
             this.dgvCompras.SelectionChanged += new System.EventHandler(this.dgvCompras_SelectionChanged);
             this.dgvCompras.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvCompras_SortCompare);
             this.dgvCompras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DgvCompras_KeyDown);
+            // 
+            // cod
+            // 
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.cod.DefaultCellStyle = dataGridViewCellStyle31;
+            this.cod.HeaderText = "Código";
+            this.cod.MaxInputLength = 10;
+            this.cod.Name = "cod";
+            this.cod.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.cod.Width = 70;
+            // 
+            // RUC
+            // 
+            this.RUC.HeaderText = "RUC";
+            this.RUC.MaxInputLength = 13;
+            this.RUC.Name = "RUC";
+            this.RUC.Width = 90;
+            // 
+            // rs
+            // 
+            dataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.rs.DefaultCellStyle = dataGridViewCellStyle32;
+            this.rs.HeaderText = "Razón Social";
+            this.rs.MaxInputLength = 300;
+            this.rs.Name = "rs";
+            this.rs.ReadOnly = true;
+            this.rs.Width = 200;
+            // 
+            // ccu
+            // 
+            this.ccu.HeaderText = "Código Cuenta";
+            this.ccu.MaxInputLength = 12;
+            this.ccu.Name = "ccu";
+            this.ccu.Width = 75;
+            // 
+            // dcu
+            // 
+            dataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.dcu.DefaultCellStyle = dataGridViewCellStyle33;
+            this.dcu.HeaderText = "Detalle Cuenta";
+            this.dcu.MaxInputLength = 500;
+            this.dcu.Name = "dcu";
+            this.dcu.ReadOnly = true;
+            this.dcu.Width = 200;
+            // 
+            // TCV
+            // 
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.TCV.DefaultCellStyle = dataGridViewCellStyle34;
+            this.TCV.HeaderText = "TCV";
+            this.TCV.MaxInputLength = 3;
+            this.TCV.Name = "TCV";
+            this.TCV.Width = 30;
+            // 
+            // fec
+            // 
+            this.fec.HeaderText = "Fecha";
+            this.fec.MaxInputLength = 10;
+            this.fec.Name = "fec";
+            this.fec.Width = 70;
+            // 
+            // Est
+            // 
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Est.DefaultCellStyle = dataGridViewCellStyle35;
+            this.Est.HeaderText = "Estab";
+            this.Est.MaxInputLength = 3;
+            this.Est.Name = "Est";
+            this.Est.Width = 40;
+            // 
+            // pe
+            // 
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.pe.DefaultCellStyle = dataGridViewCellStyle36;
+            this.pe.HeaderText = "PtoEmi";
+            this.pe.MaxInputLength = 3;
+            this.pe.Name = "pe";
+            this.pe.Width = 40;
+            // 
+            // sec
+            // 
+            this.sec.HeaderText = "Secuencial";
+            this.sec.MaxInputLength = 9;
+            this.sec.Name = "sec";
+            this.sec.Width = 70;
+            // 
+            // aut
+            // 
+            this.aut.HeaderText = "Autorización";
+            this.aut.MaxInputLength = 49;
+            this.aut.Name = "aut";
+            // 
+            // bni
+            // 
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle37.NullValue = "0";
+            this.bni.DefaultCellStyle = dataGridViewCellStyle37;
+            this.bni.HeaderText = "Base no IVA";
+            this.bni.MaxInputLength = 11;
+            this.bni.Name = "bni";
+            this.bni.Width = 75;
+            // 
+            // b0
+            // 
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle38.NullValue = "0";
+            this.b0.DefaultCellStyle = dataGridViewCellStyle38;
+            this.b0.HeaderText = "Base Imp 0%";
+            this.b0.MaxInputLength = 11;
+            this.b0.Name = "b0";
+            this.b0.Width = 75;
+            // 
+            // b12
+            // 
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle39.NullValue = "0";
+            this.b12.DefaultCellStyle = dataGridViewCellStyle39;
+            this.b12.HeaderText = "Base Imp Gra";
+            this.b12.MaxInputLength = 11;
+            this.b12.Name = "b12";
+            this.b12.Width = 75;
+            // 
+            // be
+            // 
+            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle40.NullValue = "0";
+            this.be.DefaultCellStyle = dataGridViewCellStyle40;
+            this.be.HeaderText = "Base Grav 5%";
+            this.be.MaxInputLength = 11;
+            this.be.Name = "be";
+            this.be.Width = 75;
+            // 
+            // mi
+            // 
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle41.NullValue = "0";
+            this.mi.DefaultCellStyle = dataGridViewCellStyle41;
+            this.mi.HeaderText = "Monto Ice";
+            this.mi.MaxInputLength = 11;
+            this.mi.Name = "mi";
+            this.mi.Width = 75;
+            // 
+            // miv
+            // 
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle42.NullValue = "0";
+            this.miv.DefaultCellStyle = dataGridViewCellStyle42;
+            this.miv.HeaderText = "IVA";
+            this.miv.Name = "miv";
+            this.miv.Width = 50;
+            // 
+            // tot
+            // 
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle43.NullValue = "0";
+            this.tot.DefaultCellStyle = dataGridViewCellStyle43;
+            this.tot.HeaderText = "Total";
+            this.tot.Name = "tot";
+            // 
+            // r10
+            // 
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle44.NullValue = "0";
+            this.r10.DefaultCellStyle = dataGridViewCellStyle44;
+            this.r10.HeaderText = "Ret Bien 10%";
+            this.r10.MaxInputLength = 11;
+            this.r10.Name = "r10";
+            this.r10.Visible = false;
+            this.r10.Width = 75;
+            // 
+            // r20
+            // 
+            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle45.NullValue = "0";
+            this.r20.DefaultCellStyle = dataGridViewCellStyle45;
+            this.r20.HeaderText = "Ret Serv 20%";
+            this.r20.MaxInputLength = 11;
+            this.r20.Name = "r20";
+            this.r20.Visible = false;
+            this.r20.Width = 75;
+            // 
+            // r30
+            // 
+            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle46.NullValue = "0";
+            this.r30.DefaultCellStyle = dataGridViewCellStyle46;
+            this.r30.HeaderText = "Ret Iva Bien 30%";
+            this.r30.MaxInputLength = 11;
+            this.r30.Name = "r30";
+            this.r30.Visible = false;
+            this.r30.Width = 75;
+            // 
+            // r50
+            // 
+            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle47.NullValue = "0";
+            this.r50.DefaultCellStyle = dataGridViewCellStyle47;
+            this.r50.HeaderText = "Ret Iva 50%";
+            this.r50.MaxInputLength = 11;
+            this.r50.Name = "r50";
+            this.r50.Visible = false;
+            this.r50.Width = 75;
+            // 
+            // r70
+            // 
+            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle48.NullValue = "0";
+            this.r70.DefaultCellStyle = dataGridViewCellStyle48;
+            this.r70.HeaderText = "Ret Iva Serv 70%";
+            this.r70.MaxInputLength = 11;
+            this.r70.Name = "r70";
+            this.r70.Visible = false;
+            this.r70.Width = 75;
+            // 
+            // r100
+            // 
+            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle49.NullValue = "0";
+            this.r100.DefaultCellStyle = dataGridViewCellStyle49;
+            this.r100.HeaderText = "Ret Iva 100%";
+            this.r100.MaxInputLength = 11;
+            this.r100.Name = "r100";
+            this.r100.Visible = false;
+            this.r100.Width = 75;
+            // 
+            // es1
+            // 
+            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.es1.DefaultCellStyle = dataGridViewCellStyle50;
+            this.es1.HeaderText = "Estab";
+            this.es1.MaxInputLength = 3;
+            this.es1.Name = "es1";
+            this.es1.Visible = false;
+            this.es1.Width = 40;
+            // 
+            // pe1
+            // 
+            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.pe1.DefaultCellStyle = dataGridViewCellStyle51;
+            this.pe1.HeaderText = "PtoEmi";
+            this.pe1.MaxInputLength = 3;
+            this.pe1.Name = "pe1";
+            this.pe1.Visible = false;
+            this.pe1.Width = 40;
+            // 
+            // se1
+            // 
+            this.se1.HeaderText = "Secuencial";
+            this.se1.MaxInputLength = 9;
+            this.se1.Name = "se1";
+            this.se1.Visible = false;
+            this.se1.Width = 70;
+            // 
+            // au1
+            // 
+            this.au1.HeaderText = "Autorización";
+            this.au1.MaxInputLength = 49;
+            this.au1.Name = "au1";
+            this.au1.Visible = false;
+            // 
+            // cda
+            // 
+            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.cda.DefaultCellStyle = dataGridViewCellStyle52;
+            this.cda.HeaderText = "CodATS";
+            this.cda.MaxInputLength = 7;
+            this.cda.Name = "cda";
+            this.cda.Visible = false;
+            this.cda.Width = 50;
+            // 
+            // coa
+            // 
+            dataGridViewCellStyle53.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.coa.DefaultCellStyle = dataGridViewCellStyle53;
+            this.coa.HeaderText = "Concepto";
+            this.coa.MaxInputLength = 500;
+            this.coa.Name = "coa";
+            this.coa.ReadOnly = true;
+            this.coa.Visible = false;
+            this.coa.Width = 200;
+            // 
+            // por
+            // 
+            this.por.HeaderText = "%";
+            this.por.MaxInputLength = 500;
+            this.por.Name = "por";
+            this.por.Visible = false;
+            this.por.Width = 40;
+            // 
+            // vra
+            // 
+            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle54.NullValue = "0";
+            this.vra.DefaultCellStyle = dataGridViewCellStyle54;
+            this.vra.HeaderText = "Val Retenido";
+            this.vra.MaxInputLength = 13;
+            this.vra.Name = "vra";
+            this.vra.Visible = false;
+            this.vra.Width = 75;
+            // 
+            // em
+            // 
+            dataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.em.DefaultCellStyle = dataGridViewCellStyle55;
+            this.em.HeaderText = "Estab";
+            this.em.MaxInputLength = 3;
+            this.em.Name = "em";
+            this.em.Visible = false;
+            this.em.Width = 40;
+            // 
+            // pem
+            // 
+            dataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.pem.DefaultCellStyle = dataGridViewCellStyle56;
+            this.pem.HeaderText = "PtoEmi";
+            this.pem.MaxInputLength = 3;
+            this.pem.Name = "pem";
+            this.pem.Visible = false;
+            this.pem.Width = 40;
+            // 
+            // sm
+            // 
+            this.sm.HeaderText = "Secuencial";
+            this.sm.MaxInputLength = 9;
+            this.sm.Name = "sm";
+            this.sm.Visible = false;
+            this.sm.Width = 70;
             // 
             // groupBox3
             // 
@@ -1326,333 +1653,6 @@
             this.lbSum.Size = new System.Drawing.Size(13, 17);
             this.lbSum.TabIndex = 0;
             this.lbSum.Text = "-";
-            // 
-            // cod
-            // 
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.cod.DefaultCellStyle = dataGridViewCellStyle31;
-            this.cod.HeaderText = "Código";
-            this.cod.MaxInputLength = 10;
-            this.cod.Name = "cod";
-            this.cod.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.cod.Width = 70;
-            // 
-            // RUC
-            // 
-            this.RUC.HeaderText = "RUC";
-            this.RUC.MaxInputLength = 13;
-            this.RUC.Name = "RUC";
-            this.RUC.Width = 90;
-            // 
-            // rs
-            // 
-            dataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.rs.DefaultCellStyle = dataGridViewCellStyle32;
-            this.rs.HeaderText = "Razón Social";
-            this.rs.MaxInputLength = 300;
-            this.rs.Name = "rs";
-            this.rs.ReadOnly = true;
-            this.rs.Width = 200;
-            // 
-            // ccu
-            // 
-            this.ccu.HeaderText = "Código Cuenta";
-            this.ccu.MaxInputLength = 12;
-            this.ccu.Name = "ccu";
-            this.ccu.Width = 75;
-            // 
-            // dcu
-            // 
-            dataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.dcu.DefaultCellStyle = dataGridViewCellStyle33;
-            this.dcu.HeaderText = "Detalle Cuenta";
-            this.dcu.MaxInputLength = 500;
-            this.dcu.Name = "dcu";
-            this.dcu.ReadOnly = true;
-            this.dcu.Width = 200;
-            // 
-            // TCV
-            // 
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.TCV.DefaultCellStyle = dataGridViewCellStyle34;
-            this.TCV.HeaderText = "TCV";
-            this.TCV.MaxInputLength = 3;
-            this.TCV.Name = "TCV";
-            this.TCV.Width = 30;
-            // 
-            // fec
-            // 
-            this.fec.HeaderText = "Fecha";
-            this.fec.MaxInputLength = 10;
-            this.fec.Name = "fec";
-            this.fec.Width = 70;
-            // 
-            // Est
-            // 
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Est.DefaultCellStyle = dataGridViewCellStyle35;
-            this.Est.HeaderText = "Estab";
-            this.Est.MaxInputLength = 3;
-            this.Est.Name = "Est";
-            this.Est.Width = 40;
-            // 
-            // pe
-            // 
-            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.pe.DefaultCellStyle = dataGridViewCellStyle36;
-            this.pe.HeaderText = "PtoEmi";
-            this.pe.MaxInputLength = 3;
-            this.pe.Name = "pe";
-            this.pe.Width = 40;
-            // 
-            // sec
-            // 
-            this.sec.HeaderText = "Secuencial";
-            this.sec.MaxInputLength = 9;
-            this.sec.Name = "sec";
-            this.sec.Width = 70;
-            // 
-            // aut
-            // 
-            this.aut.HeaderText = "Autorización";
-            this.aut.MaxInputLength = 49;
-            this.aut.Name = "aut";
-            // 
-            // bni
-            // 
-            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle37.NullValue = "0";
-            this.bni.DefaultCellStyle = dataGridViewCellStyle37;
-            this.bni.HeaderText = "Base no IVA";
-            this.bni.MaxInputLength = 11;
-            this.bni.Name = "bni";
-            this.bni.Width = 75;
-            // 
-            // b0
-            // 
-            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle38.NullValue = "0";
-            this.b0.DefaultCellStyle = dataGridViewCellStyle38;
-            this.b0.HeaderText = "Base Imp 0%";
-            this.b0.MaxInputLength = 11;
-            this.b0.Name = "b0";
-            this.b0.Width = 75;
-            // 
-            // b12
-            // 
-            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle39.NullValue = "0";
-            this.b12.DefaultCellStyle = dataGridViewCellStyle39;
-            this.b12.HeaderText = "Base Imp Gra";
-            this.b12.MaxInputLength = 11;
-            this.b12.Name = "b12";
-            this.b12.Width = 75;
-            // 
-            // be
-            // 
-            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle40.NullValue = "0";
-            this.be.DefaultCellStyle = dataGridViewCellStyle40;
-            this.be.HeaderText = "Base Grav 5%";
-            this.be.MaxInputLength = 11;
-            this.be.Name = "be";
-            this.be.Width = 75;
-            // 
-            // mi
-            // 
-            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle41.NullValue = "0";
-            this.mi.DefaultCellStyle = dataGridViewCellStyle41;
-            this.mi.HeaderText = "Monto Ice";
-            this.mi.MaxInputLength = 11;
-            this.mi.Name = "mi";
-            this.mi.Width = 75;
-            // 
-            // miv
-            // 
-            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle42.NullValue = "0";
-            this.miv.DefaultCellStyle = dataGridViewCellStyle42;
-            this.miv.HeaderText = "IVA";
-            this.miv.Name = "miv";
-            this.miv.Width = 50;
-            // 
-            // tot
-            // 
-            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle43.NullValue = "0";
-            this.tot.DefaultCellStyle = dataGridViewCellStyle43;
-            this.tot.HeaderText = "Total";
-            this.tot.Name = "tot";
-            // 
-            // r10
-            // 
-            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle44.NullValue = "0";
-            this.r10.DefaultCellStyle = dataGridViewCellStyle44;
-            this.r10.HeaderText = "Ret Bien 10%";
-            this.r10.MaxInputLength = 11;
-            this.r10.Name = "r10";
-            this.r10.Visible = false;
-            this.r10.Width = 75;
-            // 
-            // r20
-            // 
-            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle45.NullValue = "0";
-            this.r20.DefaultCellStyle = dataGridViewCellStyle45;
-            this.r20.HeaderText = "Ret Serv 20%";
-            this.r20.MaxInputLength = 11;
-            this.r20.Name = "r20";
-            this.r20.Visible = false;
-            this.r20.Width = 75;
-            // 
-            // r30
-            // 
-            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle46.NullValue = "0";
-            this.r30.DefaultCellStyle = dataGridViewCellStyle46;
-            this.r30.HeaderText = "Ret Iva Bien 30%";
-            this.r30.MaxInputLength = 11;
-            this.r30.Name = "r30";
-            this.r30.Visible = false;
-            this.r30.Width = 75;
-            // 
-            // r50
-            // 
-            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle47.NullValue = "0";
-            this.r50.DefaultCellStyle = dataGridViewCellStyle47;
-            this.r50.HeaderText = "Ret Iva 50%";
-            this.r50.MaxInputLength = 11;
-            this.r50.Name = "r50";
-            this.r50.Visible = false;
-            this.r50.Width = 75;
-            // 
-            // r70
-            // 
-            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle48.NullValue = "0";
-            this.r70.DefaultCellStyle = dataGridViewCellStyle48;
-            this.r70.HeaderText = "Ret Iva Serv 70%";
-            this.r70.MaxInputLength = 11;
-            this.r70.Name = "r70";
-            this.r70.Visible = false;
-            this.r70.Width = 75;
-            // 
-            // r100
-            // 
-            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle49.NullValue = "0";
-            this.r100.DefaultCellStyle = dataGridViewCellStyle49;
-            this.r100.HeaderText = "Ret Iva 100%";
-            this.r100.MaxInputLength = 11;
-            this.r100.Name = "r100";
-            this.r100.Visible = false;
-            this.r100.Width = 75;
-            // 
-            // es1
-            // 
-            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.es1.DefaultCellStyle = dataGridViewCellStyle50;
-            this.es1.HeaderText = "Estab";
-            this.es1.MaxInputLength = 3;
-            this.es1.Name = "es1";
-            this.es1.Visible = false;
-            this.es1.Width = 40;
-            // 
-            // pe1
-            // 
-            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.pe1.DefaultCellStyle = dataGridViewCellStyle51;
-            this.pe1.HeaderText = "PtoEmi";
-            this.pe1.MaxInputLength = 3;
-            this.pe1.Name = "pe1";
-            this.pe1.Visible = false;
-            this.pe1.Width = 40;
-            // 
-            // se1
-            // 
-            this.se1.HeaderText = "Secuencial";
-            this.se1.MaxInputLength = 9;
-            this.se1.Name = "se1";
-            this.se1.Visible = false;
-            this.se1.Width = 70;
-            // 
-            // au1
-            // 
-            this.au1.HeaderText = "Autorización";
-            this.au1.MaxInputLength = 49;
-            this.au1.Name = "au1";
-            this.au1.Visible = false;
-            // 
-            // cda
-            // 
-            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.cda.DefaultCellStyle = dataGridViewCellStyle52;
-            this.cda.HeaderText = "CodATS";
-            this.cda.MaxInputLength = 7;
-            this.cda.Name = "cda";
-            this.cda.Visible = false;
-            this.cda.Width = 50;
-            // 
-            // coa
-            // 
-            dataGridViewCellStyle53.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.coa.DefaultCellStyle = dataGridViewCellStyle53;
-            this.coa.HeaderText = "Concepto";
-            this.coa.MaxInputLength = 500;
-            this.coa.Name = "coa";
-            this.coa.ReadOnly = true;
-            this.coa.Visible = false;
-            this.coa.Width = 200;
-            // 
-            // por
-            // 
-            this.por.HeaderText = "%";
-            this.por.MaxInputLength = 500;
-            this.por.Name = "por";
-            this.por.Visible = false;
-            this.por.Width = 40;
-            // 
-            // vra
-            // 
-            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle54.NullValue = "0";
-            this.vra.DefaultCellStyle = dataGridViewCellStyle54;
-            this.vra.HeaderText = "Val Retenido";
-            this.vra.MaxInputLength = 13;
-            this.vra.Name = "vra";
-            this.vra.Visible = false;
-            this.vra.Width = 75;
-            // 
-            // em
-            // 
-            dataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.em.DefaultCellStyle = dataGridViewCellStyle55;
-            this.em.HeaderText = "Estab";
-            this.em.MaxInputLength = 3;
-            this.em.Name = "em";
-            this.em.Visible = false;
-            this.em.Width = 40;
-            // 
-            // pem
-            // 
-            dataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.pem.DefaultCellStyle = dataGridViewCellStyle56;
-            this.pem.HeaderText = "PtoEmi";
-            this.pem.MaxInputLength = 3;
-            this.pem.Name = "pem";
-            this.pem.Visible = false;
-            this.pem.Width = 40;
-            // 
-            // sm
-            // 
-            this.sm.HeaderText = "Secuencial";
-            this.sm.MaxInputLength = 9;
-            this.sm.Name = "sm";
-            this.sm.Visible = false;
-            this.sm.Width = 70;
             // 
             // FormCompras
             // 

@@ -34,7 +34,7 @@ namespace WinAppATS
 
             Cliente cliente = new Cliente();
 
-            createElement(iva, doc, "razonSocial", cliente.getCliente(info.Substring(0, 13)));
+            createElement(iva, doc, "razonSocial",this.remplazar(cliente.getCliente(info.Substring(0, 13))));
             createElement(iva, doc, "Anio", info.Substring(13, 4));
             createElement(iva, doc, "Mes", info.Substring(17));
 
@@ -238,7 +238,7 @@ namespace WinAppATS
                     createElement(detalleCompras, doc, "tipoComprobante", tcv(comp.Key.TCV));
 
                     createElement(detalleCompras, doc, "tipoProv", (comp.Key.RUC.Length == 13 && (comp.Key.RUC.Substring(2, 1) == "9" || comp.Key.RUC.Substring(2, 1) == "6")) ? "02" : "01");
-                    createElement(detalleCompras, doc, "denoProv", _(compra, ("rs")));
+                    createElement(detalleCompras, doc, "denoProv", this.remplazar(_(compra, ("rs"))));
                     createElement(detalleCompras, doc, "parteRel", "NO");
                     createElement(detalleCompras, doc, "fechaRegistro", _(compra, ("fec")));
                     createElement(detalleCompras, doc, "establecimiento", comp.Key.Est);
@@ -410,6 +410,22 @@ namespace WinAppATS
             XmlText textElement = doc.CreateTextNode(value);
             element.AppendChild(textElement);
             xmlElement.AppendChild(element);
+        }
+
+        private string remplazar(string razonsocial)
+        {
+            razonsocial = razonsocial.Replace('Á', 'A');
+            razonsocial = razonsocial.Replace('É', 'E');
+            razonsocial = razonsocial.Replace('Í', 'I');
+            razonsocial = razonsocial.Replace('Ó', 'O');
+            razonsocial = razonsocial.Replace('Ú', 'U');
+            razonsocial = razonsocial.Replace('Ñ', 'N');
+            razonsocial = razonsocial.Replace("&", string.Empty);
+            razonsocial = razonsocial.Replace(".", string.Empty);
+            razonsocial = razonsocial.Replace(",", string.Empty);
+            razonsocial = razonsocial.Replace("  ", " ");
+
+            return razonsocial;
         }
     }
 }
