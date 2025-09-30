@@ -45,6 +45,7 @@ namespace WinAppATS
 
             createElement(iva, doc, "numEstabRuc", establecimiento);
             createElement(iva, doc, "totalVentas", totalVentas());
+            //createElement(iva, doc, "totalVentas", "0.00");
             createElement(iva, doc, "codigoOperativo", "IVA");
 
             paraCompras(iva, doc);
@@ -178,6 +179,7 @@ namespace WinAppATS
                     {
                         createElement(ventaEst, doc, "codEstab", search.est);
                         createElement(ventaEst, doc, "ventasEstab", dec(search.bi.ToString()));
+                        //createElement(ventaEst, doc, "ventasEstab", "0.00");
                     }
                     else
                     {
