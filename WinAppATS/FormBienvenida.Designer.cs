@@ -65,6 +65,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnExportDeclaracionJson = new System.Windows.Forms.Button();
             this.btnDeclaracionRets = new System.Windows.Forms.Button();
+            this.cbVentasElectronicas = new System.Windows.Forms.CheckBox();
             this.Cliente.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -91,6 +92,7 @@
             // Cliente
             // 
             this.Cliente.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Cliente.Controls.Add(this.cbVentasElectronicas);
             this.Cliente.Controls.Add(this.cbDeclaracionSemestral);
             this.Cliente.Controls.Add(this.tbContabilidad);
             this.Cliente.Controls.Add(this.tbRepresentanteLegal);
@@ -501,6 +503,16 @@
             this.btnDeclaracionRets.UseVisualStyleBackColor = false;
             this.btnDeclaracionRets.Click += new System.EventHandler(this.btnDeclaracionRets_Click);
             // 
+            // cbVentasElectronicas
+            // 
+            this.cbVentasElectronicas.AutoSize = true;
+            this.cbVentasElectronicas.Location = new System.Drawing.Point(907, 254);
+            this.cbVentasElectronicas.Name = "cbVentasElectronicas";
+            this.cbVentasElectronicas.Size = new System.Drawing.Size(199, 29);
+            this.cbVentasElectronicas.TabIndex = 10;
+            this.cbVentasElectronicas.Text = "Ventas electrónicas";
+            this.cbVentasElectronicas.UseVisualStyleBackColor = true;
+            // 
             // FormBienvenida
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -565,5 +577,6 @@
         private System.Windows.Forms.Button btnExportDeclaracionJson;
         private System.Windows.Forms.CheckBox cbDeclaracionSemestral;
         private System.Windows.Forms.Button btnDeclaracionRets;
+        private System.Windows.Forms.CheckBox cbVentasElectronicas;
     }
 }

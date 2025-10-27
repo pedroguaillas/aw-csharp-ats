@@ -16,7 +16,13 @@ namespace WinAppATS
 
         private void BtnExportar_Click(object sender, EventArgs e)
         {
-            GenererateAtsXml xml = new GenererateAtsXml(this.Name.Substring(this.Name.Length - 19), tbEstablecimiento.Text, cbDeclaracionSemestral.Checked);
+            GenererateAtsXml xml = new GenererateAtsXml(
+                this.Name.Substring(this.Name.Length - 19),
+                tbEstablecimiento.Text,
+                cbDeclaracionSemestral.Checked,
+                cbVentasElectronicas.Checked
+                );
+
             xml.generate();
         }
 

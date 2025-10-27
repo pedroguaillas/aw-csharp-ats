@@ -409,6 +409,7 @@ namespace WinAppATS
                 case 2: tcv = "N/D"; break;
                 case 3: tcv = "L/C"; break;
                 case 4: tcv = "N/V"; break;
+                case 5: tcv = "L/U"; break;
             }
             try
             {

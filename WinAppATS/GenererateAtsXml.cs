@@ -12,12 +12,14 @@ namespace WinAppATS
         String info;
         String establecimiento;
         bool semestral;
+        bool VentaElectronica;
 
-        public GenererateAtsXml(string info, string establecimiento, bool semestral)
+        public GenererateAtsXml(string info, string establecimiento, bool semestral, bool VentaElectronica)
         {
             this.info = info;
             this.establecimiento = establecimiento;
             this.semestral = semestral;
+            this.VentaElectronica = VentaElectronica;
         }
 
         public void generate()
@@ -34,7 +36,7 @@ namespace WinAppATS
 
             Cliente cliente = new Cliente();
 
-            createElement(iva, doc, "razonSocial",this.remplazar(cliente.getCliente(info.Substring(0, 13))));
+            createElement(iva, doc, "razonSocial", this.remplazar(cliente.getCliente(info.Substring(0, 13))));
             createElement(iva, doc, "Anio", info.Substring(13, 4));
             createElement(iva, doc, "Mes", info.Substring(17));
 
@@ -44,7 +46,7 @@ namespace WinAppATS
             }
 
             createElement(iva, doc, "numEstabRuc", establecimiento);
-            createElement(iva, doc, "totalVentas", totalVentas());
+            createElement(iva, doc, "totalVentas", this.VentaElectronica ? "0.00" : totalVentas());
             //createElement(iva, doc, "totalVentas", "0.00");
             createElement(iva, doc, "codigoOperativo", "IVA");
 
@@ -103,7 +105,7 @@ namespace WinAppATS
                             createElement(detalleVentas, doc, "denoCli", "PERSONA EXTRANJERA");
                         }
                         createElement(detalleVentas, doc, "tipoComprobante", tcvV(venta.Key.TCV));
-                        createElement(detalleVentas, doc, "tipoEmision", ("F"));
+                        createElement(detalleVentas, doc, "tipoEmision", (this.VentaElectronica ? "E" : "F"));
                         createElement(detalleVentas, doc, "numeroComprobantes", venta.g.Count().ToString());
                         createElement(detalleVentas, doc, "baseNoGraIva", "0.00");
                         createElement(detalleVentas, doc, "baseImponible", dec(venta.g.Sum(s => decimal.Parse((string)s.Element("b0"))).ToString()));
@@ -178,7 +180,7 @@ namespace WinAppATS
                     if (search != null)
                     {
                         createElement(ventaEst, doc, "codEstab", search.est);
-                        createElement(ventaEst, doc, "ventasEstab", dec(search.bi.ToString()));
+                        createElement(ventaEst, doc, "ventasEstab", this.VentaElectronica ? "0.00" : dec(search.bi.ToString()));
                         //createElement(ventaEst, doc, "ventasEstab", "0.00");
                     }
                     else
@@ -278,7 +280,7 @@ namespace WinAppATS
                         sumfp += double.Parse((string)meth.Element("bni")) + double.Parse((string)meth.Element("b0")) + double.Parse((string)meth.Element("be")) + double.Parse((string)meth.Element("b12")) + double.Parse((string)meth.Element("mi")) + double.Parse((string)meth.Element("miv"));
                     }
 
-                    if (sumfp >= 500)
+                    if (sumfp > 500 && _(compra, ("TCV")) != "N/C")
                     {
                         XmlElement formasDePago = doc.CreateElement(string.Empty, "formasDePago", string.Empty);
                         detalleCompras.AppendChild(formasDePago);
@@ -317,7 +319,7 @@ namespace WinAppATS
                         }
                     }
                     // NC y ND
-                    if (int.Parse(tcv(_(compra, ("TCV")))) > 3)
+                    if (_(compra, ("TCV")) == "N/C" || _(compra, ("TCV")) == "N/D")
                     {
                         createElement(detalleCompras, doc, "docModificado", ("01"));
                         createElement(detalleCompras, doc, "estabModificado", _(compra, ("em")));
@@ -371,6 +373,7 @@ namespace WinAppATS
                 case "L/C": return "03";
                 case "N/C": return "04";
                 case "N/D": return "05";
+                case "L/U": return "294";
                 default: return "0";
             }
         }
